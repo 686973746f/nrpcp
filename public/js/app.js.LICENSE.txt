@@ -1,0 +1,240 @@
+/*
+	object-assign
+	(c) Sindre Sorhus
+	@license MIT
+	*/
+
+/*!
+	 * The buffer module from node.js, for the browser.
+	 *
+	 * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+	 * @license  MIT
+	 */
+
+/*!
+	 * onDomReady.js 1.4.0 (c) 2013 Tubal Martin - MIT license
+	 *
+	 * Specially modified to work with Holder.js
+	 */
+
+/*!
+
+Holder - client side image placeholders
+Version 2.9.9+jl7z
+© 2021 Ivan Malopinsky - https://imsky.co
+
+Site:     http://holderjs.com
+Issues:   https://github.com/imsky/holder/issues
+License:  MIT
+
+*/
+
+/*!
+
+JSZip v3.9.1 - A JavaScript class for generating and reading zip files
+<http://stuartk.com/jszip>
+
+(c) 2009-2016 Stuart Knightley <stuart [at] stuartk.com>
+Dual licenced under the MIT license or GPLv3. See https://raw.github.com/Stuk/jszip/master/LICENSE.markdown.
+
+JSZip uses the library pako released under the MIT license :
+https://github.com/nodeca/pako/blob/master/LICENSE
+*/
+
+/*!
+  * Bootstrap v5.1.3 (https://getbootstrap.com/)
+  * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
+
+/*!
+ * Select2 4.1.0-rc.0
+ * https://select2.github.io
+ *
+ * Released under the MIT license
+ * https://github.com/select2/select2/blob/master/LICENSE.md
+ */
+
+/*!
+ * Sizzle CSS Selector Engine v2.3.6
+ * https://sizzlejs.com/
+ *
+ * Copyright JS Foundation and other contributors
+ * Released under the MIT license
+ * https://js.foundation/
+ *
+ * Date: 2021-02-16
+ */
+
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <http://feross.org>
+ * @license  MIT
+ */
+
+/*!
+ * jQuery JavaScript Library v3.6.0
+ * https://jquery.com/
+ *
+ * Includes Sizzle.js
+ * https://sizzlejs.com/
+ *
+ * Copyright OpenJS Foundation and other contributors
+ * Released under the MIT license
+ * https://jquery.org/license
+ *
+ * Date: 2021-03-02T17:08Z
+ */
+
+/*!
+ Buttons for DataTables 2.2.2
+ ©2016-2022 SpryMedia Ltd - datatables.net/license
+*/
+
+/*!
+ Column visibility buttons for Buttons and DataTables.
+ 2016 SpryMedia Ltd - datatables.net/license
+*/
+
+/*!
+ Flash export buttons for Buttons and DataTables.
+ 2015 SpryMedia Ltd - datatables.net/license
+
+ ZeroClipbaord - MIT license
+ Copyright (c) 2012 Joseph Huckaby
+*/
+
+/*!
+ HTML5 export buttons for Buttons and DataTables.
+ 2016 SpryMedia Ltd - datatables.net/license
+
+ FileSaver.js (1.3.3) - MIT license
+ Copyright © 2016 Eli Grey - http://eligrey.com
+*/
+
+/*!
+ Print button for Buttons and DataTables.
+ 2016 SpryMedia Ltd - datatables.net/license
+*/
+
+/*! Buttons for DataTables 2.2.2
+ * ©2016-2022 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! DataTables 1.11.5
+ * ©2008-2021 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! DataTables integration for DataTables' FixedColumns
+ * ©2016 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! DataTables integration for DataTables' SearchBuilder
+ * ©2016 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! DataTables styling integration
+ * ©2018 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! DataTables styling wrapper for Buttons
+ * ©2018 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! DataTables styling wrapper for FixedHeader
+ * ©2018 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! DataTables styling wrapper for Responsive
+ * ©2018 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! DataTables styling wrapper for RowGroup
+ * ©2018 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! DataTables styling wrapper for Scroller
+ * ©2018 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! DateTime picker for DataTables.net v1.1.2
+ *
+ * © SpryMedia Ltd, all rights reserved.
+ * License: MIT datatables.net/license/mit
+ */
+
+/*! FixedColumns 4.0.2
+     * 2019-2022 SpryMedia Ltd - datatables.net/license
+     */
+
+/*! FixedColumns 4.0.2
+ * 2019-2022 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! FixedHeader 3.2.2
+ * ©2009-2021 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! Responsive 2.2.9
+ * 2014-2021 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! RowGroup 1.1.4
+ * ©2017-2021 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! Scroller 2.0.5
+ * ©2011-2021 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! SearchBuilder 1.3.1
+     * ©SpryMedia Ltd - datatables.net/license/mit
+     */
+
+/*! SearchBuilder 1.3.1
+ * ©SpryMedia Ltd - datatables.net/license/mit
+ */
+
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
+
+/**
+ * @license
+ * Lodash <https://lodash.com/>
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+/**
+ * @license almond 0.3.3 Copyright jQuery Foundation and other contributors.
+ * Released under MIT license, http://github.com/requirejs/almond/LICENSE
+ */
+
+/**!
+ * @fileOverview Kickass library to create and place poppers near their reference elements.
+ * @version 1.16.1
+ * @license
+ * Copyright (c) 2016 Federico Zivolo and contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+// @license http://opensource.org/licenses/MIT

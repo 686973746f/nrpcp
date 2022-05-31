@@ -1,0 +1,26 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Font-awesome
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+@import '~datatables.net-dt/css/jquery.dataTables';
+@import '~datatables.net-fixedcolumns-dt/css/fixedColumns.dataTables';
+@import '~datatables.net-fixedheader-dt/css/fixedHeader.dataTables';
+@import '~datatables.net-responsive-dt/css/responsive.dataTables';
+@import '~datatables.net-scroller-dt/css/scroller.dataTables';
+@import '~datatables.net-searchbuilder-dt/css/searchBuilder.dataTables';
+@import '~datatables.net-rowgroup-dt/css/rowGroup.dataTables';
+@import '~datatables.net-buttons-dt/css/buttons.dataTables';
+
+@import "~select2/dist/css/select2.css";
+@import '~select2-theme-bootstrap4/dist/select2-bootstrap.css';
