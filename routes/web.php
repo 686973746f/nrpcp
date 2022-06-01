@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PatientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,14 @@ use App\Http\Controllers\HomeController;
 */
 
 Auth::routes(['verify' => true]);
+
+Route::group(['middleware' => ['IsStaff']], function () {
+    Route::get('/patient', [PatientController::class, 'index'])->name('patient_index');
+    Route::get('/patient/create', [PatientController::class, 'create'])->name('patient_create');
+    Route::post('/patient/create', [PatientController::class, 'store'])->name('patient_store');
+    Route::get('/patient/{id}/edit', [PatientController::class, 'edit'])->name('patient_edit');
+    Route::post('/patient/{id}/edit', [PatientController::class, 'update'])->name('patient_update');
+});
 
 Route::get('/home', function() {
     return view('home');

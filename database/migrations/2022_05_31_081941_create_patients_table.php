@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
+            $table->tinyInteger('enabled')->default(1);
             $table->string('lname');
             $table->string('fname');
             $table->string('mname')->nullable();

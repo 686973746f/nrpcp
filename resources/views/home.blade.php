@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-body">
             <div class="d-grid gap-2">
-                <a href="" class="btn btn-primary btn-lg">Patient Lists</a>
+                <a href="{{route('patient_index')}}" class="btn btn-primary btn-lg">Patient Lists</a>
                 <button type="button" class="btn btn-primary btn-lg">New Vaccination</button>
                 <hr>
                 <a href="" class="btn btn-primary btn-lg">Admin Panel</a>
