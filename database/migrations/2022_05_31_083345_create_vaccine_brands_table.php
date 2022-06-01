@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('vaccine_brands', function (Blueprint $table) {
             $table->id();
             $table->string('brand_name');
+            $table->tinyInteger('enabled')->default(1);
             $table->timestamps();
         });
     }

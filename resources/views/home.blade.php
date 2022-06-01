@@ -4,8 +4,14 @@
 <div class="container">
     <div class="card">
         <div class="card-body">
-            <a href="" class="btn btn-primary">Patient Lists</a>
-            <button type="button" class="btn btn-primary"></button>
+            <div class="d-grid gap-2">
+                <a href="" class="btn btn-primary btn-lg">Patient Lists</a>
+                <button type="button" class="btn btn-primary btn-lg">New Vaccination</button>
+                <hr>
+                <a href="" class="btn btn-primary btn-lg">Admin Panel</a>
+                <hr>
+                <a href="" class="btn btn-primary btn-lg">Account Options</a>
+            </div>
         </div>
     </div>
 </div>

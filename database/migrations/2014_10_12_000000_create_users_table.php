@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->tinyInteger('is_admin');
             $table->tinyInteger('member_type');
+            $table->foreignId('default_vaccinationsite_id')->nullable()->constrained('vaccination_sites')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

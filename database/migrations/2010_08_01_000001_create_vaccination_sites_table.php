@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('vaccination_sites', function (Blueprint $table) {
             $table->id();
             $table->string('site_name');
+            $table->tinyInteger('enabled')->default(1);
             $table->timestamps();
         });
     }
