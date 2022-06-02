@@ -35,7 +35,7 @@ return new class extends Migration
             $table->text('address_street');
             $table->text('address_houseno');
             
-            $table->text('remarks');
+            $table->text('remarks')->nullable();
             $table->timestamps();
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('cascade');

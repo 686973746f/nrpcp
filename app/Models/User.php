@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Patient;
 use App\Models\VaccineList;
 use App\Models\VaccinatorNames;
 use App\Models\VaccinationCenter;
@@ -45,4 +46,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function patient() {
+        return $this->hasMany(Patient::class, 'created_by');
+    }
 }

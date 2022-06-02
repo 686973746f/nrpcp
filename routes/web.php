@@ -31,5 +31,10 @@ Route::get('/home', function() {
 })->name('home');
 
 Route::get('/', function () {
-    return view('auth.login');
+    if(auth()->check()) {
+        return view('home');
+    }
+    else {
+        return view('auth.login');
+    }
 })->name('main');
