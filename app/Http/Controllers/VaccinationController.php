@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class VaccinationController extends Controller
 {
-    public function create_index($id) {
+    public function encodevaccination_create($id) {
         
     }
 

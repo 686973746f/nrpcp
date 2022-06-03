@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PatientController extends Controller
 {
@@ -57,5 +58,27 @@ class PatientController extends Controller
     
     public function update($id, Request $request) {
 
+    }
+
+    public function ajaxList(Request $request) {
+        $list = [];
+        if($request->has('q') && strlen($request->input('q')) > 1) {
+            $search = mb_strtoupper($request->q);
+
+            $data = Patient::where(function ($query) use ($search) {
+                $query->where(DB::raw('CONCAT(lname," ",fname," ", mname)'), 'LIKE', "%".str_replace(',','', $search)."%")
+                ->orWhere(DB::raw('CONCAT(lname," ",fname)'), 'LIKE', "%".str_replace(',','', $search)."%")
+                ->orWhere('id', $search);
+            })->get();
+
+            foreach($data as $item) {
+                array_push($list, [
+                    'id' => $item->id,
+                    'text' => $item->getName().' | '.$item->getAge().'/'.substr($item->gender,0,1).' | '.date('m/d/Y', strtotime($item->bdate)),
+                ]);
+            }
+        }
+
+        return response()->json($list);
     }
 }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PatientController;
 
 /*
@@ -24,6 +25,12 @@ Route::group(['middleware' => ['IsStaff']], function () {
     Route::post('/patient/create', [PatientController::class, 'store'])->name('patient_store');
     Route::get('/patient/{id}/edit', [PatientController::class, 'edit'])->name('patient_edit');
     Route::post('/patient/{id}/edit', [PatientController::class, 'update'])->name('patient_update');
+    Route::get('/patient/ajaxList', [PatientController::class, 'ajaxList'])->name('patient_ajaxlist');
+
+    Route::get('/vaccination_site', [AdminController::class, 'vaccinationsite_index'])->name('vaccinationsite_index');
+    Route::post('/vaccination_site', [AdminController::class, 'vaccinationsite_store'])->name('vaccinationsite_store');
+
+    Route::get('/encode?id={id}', [AdminController::class, 'encodevaccination_create'])->name('encodevaccination_create');
 });
 
 Route::get('/home', function() {

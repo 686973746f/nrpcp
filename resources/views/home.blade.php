@@ -26,7 +26,11 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              ...
+              <div class="mb-3">
+                <label for="patient_id" class="form-label">City</label>
+                <select class="form-select" name="patient_id" id="patient_id">
+                </select>
+              </div>
             </div>
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary">Save changes</button>
@@ -45,11 +49,38 @@
         </div>
         <div class="modal-body">
             <div class="d-grid gap-2">
-                <a href="" class="btn btn-primary">Vaccination Sites</a>
+                <a href="{{route('vaccinationsite_index')}}" class="btn btn-primary">Vaccination Sites</a>
                 <a href="" class="btn btn-primary">Site Settings</a>
             </div>
         </div>
       </div>
     </div>
 </div>
+
+<script>
+  $(document).ready(function () {
+    $('#patient_id').select2({
+          dropdownParent: $("#nvm"),
+          theme: "bootstrap",
+          placeholder: 'Search by Name / Patient ID ...',
+          ajax: {
+              url: "{{route('patient_ajaxlist')}}",
+              dataType: 'json',
+              delay: 250,
+              processResults: function (data) {
+                  return {
+                      results:  $.map(data, function (item) {
+                          return {
+                              text: item.text,
+                              id: item.id,
+                              class: item.class,
+                          }
+                      })
+                  };
+              },
+              cache: true
+          }
+      });
+  });
+</script>
 @endsection
