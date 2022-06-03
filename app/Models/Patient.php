@@ -52,7 +52,7 @@ class Patient extends Model
     }
 
     public function sg() {
-        return substr($this->sex,0,1);
+        return substr($this->gender,0,1);
     }
 
     public function getAge() {

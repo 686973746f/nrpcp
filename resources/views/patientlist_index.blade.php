@@ -40,7 +40,9 @@
                     @endforeach
                 </tbody>
             </table>
-            
+            <div class="pagination justify-content-center mt-3">
+                {{$list->appends(request()->input())->links()}}
+            </div>
         </div>
     </div>
 </div>
