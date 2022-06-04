@@ -5,7 +5,7 @@
     @csrf
     <div class="container">
         <div class="card">
-            <div class="card-header">Create New Vaccination Record for {{$d->getName()}}</div>
+            <div class="card-header"><strong>Create New Anti-Rabies Vaccination for {{$d->getName()}}</strong></div>
             <div class="card-body">
                 @if(session('msg'))
                 <div class="alert alert-{{session('msgtype')}}" role="alert">
@@ -23,8 +23,29 @@
                 @endif
 
                 <div class="alert alert-info" role="alert">
-                    All Fields marked with an asterisk (<strong class="text-danger">*</strong>) are required fields.
+                    Note: All Fields marked with an asterisk (<strong class="text-danger">*</strong>) are required fields.
                 </div>
+                <table class="table table-bordered">
+                    <tbody class="text-center">
+                        <tr>
+                            <td><strong>Name / ID</strong></td>
+                            <td><a href="{{route('patient_edit', ['id' => $d->id])}}">{{$d->getName()}} (#{{$d->id}})</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Birthdate/Age/Gender</strong></td>
+                            <td>{{date('m-d-Y', strtotime($d->bdate))}} / {{$d->getAge()}} / {{$d->sg()}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Address</strong></td>
+                            <td>{{$d->getAddress()}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Contact No.</strong></td>
+                            <td>{{$d->contact_number}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
                 <div class="row">
                     <div class="col-md-6">
                         <div>
@@ -39,7 +60,7 @@
                     <div class="col-md">
                         <div>
                             <label for="case_date" class="form-label"><strong class="text-danger">*</strong>Date of Registration</label>
-                            <input type="date" class="form-control" name="case_date" id="case_date" min="2000-01-01" max="{{date('Y-m-d')}}" value="{{old('bite_date', date('Y-m-d'))}}" required>
+                            <input type="date" class="form-control" name="case_date" id="case_date" min="2000-01-01" max="{{date('Y-m-d')}}" value="{{old('case_date', date('Y-m-d'))}}" required>
                             <small class="text-muted">Date patient was first seen, regardless whether patient was given PEP or not.</small>
                         </div>
                     </div>
@@ -101,9 +122,9 @@
                             <label for="category_level" class="form-label"><strong class="text-danger">*</strong>Category</label>
                             <select class="form-select" name="category_level" id="category_level" required>
                                 <option value="" disabled {{is_null(old('category_level')) ? 'selected' : ''}}>Choose...</option>
-                                <option value="1" {{(old('category_level') == '1') ? 'selected' : ''}}>Category 1</option>
-                                <option value="2" {{(old('category_level') == '2') ? 'selected' : ''}}>Category 2</option>
-                                <option value="3" {{(old('category_level') == '3') ? 'selected' : ''}}>Category 3</option>
+                                <option value="1" {{(old('category_level') == 1) ? 'selected' : ''}}>Category 1</option>
+                                <option value="2" {{(old('category_level') == 2) ? 'selected' : ''}}>Category 2</option>
+                                <option value="3" {{(old('category_level') == 3) ? 'selected' : ''}}>Category 3</option>
                             </select>
                         </div>
                     </div>
@@ -133,8 +154,8 @@
                             <label for="pep_route" class="form-label"><strong class="text-danger">*</strong>Route</label>
                             <select class="form-select" name="pep_route" id="pep_route" required>
                                 <option value="" disabled {{is_null(old('pep_route')) ? 'selected' : ''}}>Choose...</option>
-                                <option value="IM" {{(old('pep_route') == 'Y') ? 'selected' : ''}}>IM - Intramuscular</option>
-                                <option value="ID" {{(old('pep_route') == 'N') ? 'selected' : ''}}>ID</option>
+                                <option value="IM" {{(old('pep_route') == 'IM') ? 'selected' : ''}}>IM - Intramuscular</option>
+                                <option value="ID" {{(old('pep_route') == 'ID') ? 'selected' : ''}}>ID</option>
                             </select>
                         </div>
                     </div>
@@ -152,8 +173,8 @@
                 </div>
                 <div class="mb-3">
                     <label for="d0_date" class="form-label"><strong class="text-danger">*</strong>First Vaccine / Day 0 Date</label>
-                    <input type="date" class="form-control" name="d0_date" id="d0_date" min="2000-01-01" max="{{date('Y-m-d')}}" value="{{old('d0_date')}}" required>
-                    <small class="text-muted">Date for D3, D7 and onwards will be given after you finish the encoding.</small>
+                    <input type="date" class="form-control" name="d0_date" id="d0_date" min="2000-01-01" max="{{date('Y-m-d')}}" value="{{old('d0_date', date('Y-m-d'))}}" required>
+                    <small class="text-muted">Schedule date for Day 3, Day 7 onwards will be automatically given after you finish the encoding.</small>
                 </div>
                 <div class="row">
                     <div class="col-md-6">

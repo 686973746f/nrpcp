@@ -36,8 +36,14 @@ Route::group(['middleware' => ['IsStaff']], function () {
 
     Route::post('/encode_search', [VaccinationController::class, 'search_init'])->name('search_init');
     Route::get('/encode/existing/{id}', [VaccinationController::class, 'encode_existing'])->name('encode_existing');
+    
     Route::get('/encode/new/{id}', [VaccinationController::class, 'create_new'])->name('encode_create_new');
     Route::post('/encode/new/{id}', [VaccinationController::class, 'create_store'])->name('encode_store');
+
+    Route::get('/encode/edit/{br_id}', [VaccinationController::class, 'encode_edit'])->name('encode_edit');
+    Route::post('/encode/edit/{br_id}', [VaccinationController::class, 'encode_update'])->name('encode_update');
+
+    Route::get('/encode/process_vaccination/{br_id}/{dose}', [VaccinationController::class, 'encode_process'])->name('encode_process');
 });
 
 Route::get('/home', function() {

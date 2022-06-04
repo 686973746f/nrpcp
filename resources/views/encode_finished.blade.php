@@ -31,27 +31,31 @@
                         </thead>
                         <tbody class="text-center">
                             <tr>
+                                <td><strong>Day 0</strong></td>
+                                <td>{{date('m/d/Y (l)', strtotime($f->d0_date))}} @if($f->d0_done == 1) - <strong class="text-success">DONE</strong> @endif</td>
+                            </tr>
+                            <tr>
                                 <td><strong>3rd Day</strong></td>
-                                <td>{{date('m/d/Y (l)', strtotime($f->d3_date))}}</td>
+                                <td>{{date('m/d/Y (l)', strtotime($f->d3_date))}} @if($f->d3_done == 1) - <strong class="text-success">DONE</strong> @endif</td>
                             </tr>
                             <tr>
                                 <td><strong>7th Day</strong></td>
-                                <td>{{date('m/d/Y (l)', strtotime($f->d7_date))}}</td>
+                                <td>{{date('m/d/Y (l)', strtotime($f->d7_date))}} @if($f->d7_done == 1) - <strong class="text-success">DONE</strong> @endif</td>
                             </tr>
                             <tr>
                                 <td><strong>14th Day</strong></td>
-                                <td>{{date('m/d/Y (l)', strtotime($f->d14_date))}}</td>
+                                <td>{{date('m/d/Y (l)', strtotime($f->d14_date))}} @if($f->d14_done == 1) - <strong class="text-success">DONE</strong> @endif</td>
                             </tr>
                             <tr>
                                 <td><strong>28th Day</strong></td>
-                                <td>{{date('m/d/Y (l)', strtotime($f->d28_date))}}</td>
+                                <td>{{date('m/d/Y (l)', strtotime($f->d28_date))}} @if($f->d28_done == 1) - <strong class="text-success">DONE</strong> @endif</td>
                             </tr>
                         </tbody>
                     </table>
                     
                 </div>
                 <div class="card-footer text-center">
-                    <a href="{{route('home')}}"><i class="fa-solid fa-house me-2"></i>Back to Home</a>
+                    <a href="{{route('home')}}" class="btn btn-link"><i class="fa-solid fa-house me-2"></i>Back to Home</a>
                 </div>
             </div>
         </div>

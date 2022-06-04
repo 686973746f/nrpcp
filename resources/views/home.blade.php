@@ -4,6 +4,11 @@
 <div class="container">
     <div class="card">
         <div class="card-body">
+            @if(session('msg'))
+            <div class="alert alert-{{session('msgtype')}}" role="alert">
+                {{session('msg')}}
+            </div>
+            @endif
             <div class="d-grid gap-2">
                 <a href="{{route('patient_index')}}" class="btn btn-primary btn-lg">Patient Lists</a>
                 <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#nvm">New Vaccination</button>
