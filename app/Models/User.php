@@ -3,11 +3,8 @@
 namespace App\Models;
 
 use App\Models\Patient;
-use App\Models\VaccineList;
-use App\Models\VaccinatorNames;
-use App\Models\VaccinationCenter;
+use App\Models\BakunaRecords;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\VaccinationSchedule;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,5 +46,9 @@ class User extends Authenticatable
 
     public function patient() {
         return $this->hasMany(Patient::class, 'created_by');
+    }
+
+    public function bakunarecord() {
+        return $this->hasMany(BakunaRecords::class, 'created_by');
     }
 }

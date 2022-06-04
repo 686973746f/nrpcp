@@ -17,27 +17,28 @@
     </div>
 </div>
 
-<form action="" method="GET">
-    <div class="modal fade" id="nvm" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="">New Vaccination</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="mb-3">
-                <label for="patient_id" class="form-label">City</label>
-                <select class="form-select" name="patient_id" id="patient_id">
-                </select>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Save changes</button>
+<form action="{{route('search_init')}}" method="POST">
+  @csrf
+  <div class="modal fade" id="nvm" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="">New Vaccination</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="patient_id" class="form-label">Select Patient to Encode</label>
+              <select class="form-select" name="patient_id" id="patient_id" required>
+              </select>
             </div>
           </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success"><i class="fa-solid fa-magnifying-glass me-2"></i>Search</button>
+          </div>
         </div>
-    </div>
+      </div>
+  </div>
 </form>
 
 <div class="modal fade" id="adminpanel" tabindex="-1">
@@ -50,6 +51,7 @@
         <div class="modal-body">
             <div class="d-grid gap-2">
                 <a href="{{route('vaccinationsite_index')}}" class="btn btn-primary">Vaccination Sites</a>
+                <a href="{{route('vaccinebrand_index')}}" class="btn btn-primary">Vaccine Brands</a>
                 <a href="" class="btn btn-primary">Site Settings</a>
             </div>
         </div>

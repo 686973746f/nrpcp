@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\VaccinationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +31,13 @@ Route::group(['middleware' => ['IsStaff']], function () {
     Route::get('/vaccination_site', [AdminController::class, 'vaccinationsite_index'])->name('vaccinationsite_index');
     Route::post('/vaccination_site', [AdminController::class, 'vaccinationsite_store'])->name('vaccinationsite_store');
 
-    Route::get('/encode?id={id}', [AdminController::class, 'encodevaccination_create'])->name('encodevaccination_create');
+    Route::get('/vaccine_brand', [AdminController::class, 'vaccinebrand_index'])->name('vaccinebrand_index');
+    Route::post('/vaccine_brand', [AdminController::class, 'vaccinebrand_store'])->name('vaccinebrand_store');
+
+    Route::post('/encode_search', [VaccinationController::class, 'search_init'])->name('search_init');
+    Route::get('/encode/existing/{id}', [VaccinationController::class, 'encode_existing'])->name('encode_existing');
+    Route::get('/encode/new/{id}', [VaccinationController::class, 'create_new'])->name('encode_create_new');
+    Route::post('/encode/new/{id}', [VaccinationController::class, 'create_store'])->name('encode_store');
 });
 
 Route::get('/home', function() {

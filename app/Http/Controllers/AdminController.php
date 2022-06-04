@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\VaccineBrand;
 use Illuminate\Http\Request;
 use App\Models\VaccinationSite;
 
@@ -26,6 +27,28 @@ class AdminController extends Controller
 
         return redirect()->route('vaccinationsite_index')
         ->with('msg', 'Vaccination Site was added successfully.')
+        ->with('msgtype', 'success');
+    }
+
+    public function vaccinebrand_index() {
+        $list = VaccineBrand::orderBy('brand_name', 'ASC')->paginate(10);
+
+        return view('vaccinebrand_index', [
+            'list' => $list,
+        ]);
+    }
+
+    public function vaccinebrand_store(Request $request) {
+        $request->validate([
+            'brand_name' => 'required',
+        ]);
+
+        VaccineBrand::create([
+            'brand_name' => strtoupper($request->brand_name),
+        ]);
+
+        return redirect()->route('vaccinebrand_index')
+        ->with('msg', 'Anti-Rabies Brand '.strtoupper($request->brand_name).' was successfully added.')
         ->with('msgtype', 'success');
     }
 }

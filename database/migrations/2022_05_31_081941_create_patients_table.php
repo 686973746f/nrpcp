@@ -36,6 +36,7 @@ return new class extends Migration
             $table->text('address_houseno');
             
             $table->text('remarks')->nullable();
+            $table->text('qr');
             $table->timestamps();
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('cascade');

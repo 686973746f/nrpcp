@@ -5,8 +5,13 @@
     @csrf
     <div class="container">
         <div class="card">
-            <div class="card-header"><strong>Add Patient</strong></div>
+            <div class="card-header"><strong><i class="fa-solid fa-circle-plus me-2"></i>Add Patient</strong></div>
             <div class="card-body">
+                @if(session('msg'))
+                <div class="alert alert-{{session('msgtype')}}" role="alert">
+                    {{session('msg')}}
+                </div>
+                @endif
                 <div class="row">
                     <div class="col-md-3">
                         <div class="mb-3">
@@ -124,7 +129,7 @@
                 </div>
             </div>
             <div class="card-footer text-end">
-                <button type="submit" class="btn btn-success">Save</button>
+                <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk me-2"></i>Save</button>
             </div>
         </div>
     </div>
