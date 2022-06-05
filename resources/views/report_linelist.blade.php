@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between">
-                <div>Linelist</div>
+                <div>Linelist - Total Count: {{$list->count()}}</div>
                 <div><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#halp"><i class="fa-solid fa-circle-question me-2"></i>Help</button></div>
             </div>
         </div>
@@ -84,7 +84,7 @@
                             <td>{{$d->brand_name}}</td>
                             <td>{{$d->outcome}}</td>
                             <td>{{$d->biting_animal_status}}</td>
-                            <td><small>{{$d->remarks}}</small></td>
+                            <td><small>{{($d->is_booster == 1) ? 'BOOSTER' : ''}} {{$d->remarks}}</small></td>
                         </tr>
                         @empty
                         <tr class="text-center">

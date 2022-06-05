@@ -263,7 +263,7 @@ class VaccinationController extends Controller
     }
 
     public function bakuna_again($patient_id) {
-        $b = BakunaRecords::where('patient_id', $patient_id)->where('outcome', 'C')->orderBy('created_at', 'DESC')->first();
+        $b = BakunaRecords::where('patient_id', $patient_id)->whereNotIn('outcome', ['C', 'INC'])->orderBy('created_at', 'DESC')->first();
 
         if($b) {
             $vblist = VaccineBrand::where('enabled', 1)->orderBy('brand_name', 'ASC')->get();

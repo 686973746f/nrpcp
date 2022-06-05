@@ -95,6 +95,11 @@ class ReportController extends Controller
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
+                $booster_count = BakunaRecords::where('is_booster', 1)
+                ->where('vaccination_site_id', $v->id)
+                ->whereBetween('case_date', [$sd, $ed])
+                ->count();
+
                 $sheet->setCellValue('A'.$i, $v->site_name);
 
                 $sheet->setCellValue('C'.$i, $male_count);
@@ -110,6 +115,8 @@ class ReportController extends Controller
                 $sheet->setCellValue('V'.$i, $dog_count);
                 $sheet->setCellValue('W'.$i, $cat_count);
                 $sheet->setCellValue('X'.$i, $others_count);
+
+                $sheet->setCellValue('Z'.$i, $booster_count);
             }
 
             $i = $i+1;

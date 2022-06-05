@@ -13,6 +13,7 @@ class BakunaRecords extends Model
         'patient_id',
         'vaccination_site_id',
         'case_id',
+        'is_booster',
         'case_date',
         'case_location',
         'animal_type',
@@ -46,5 +47,17 @@ class BakunaRecords extends Model
 
     public function vaccinationsite() {
         return $this->belongsTo(VaccinationSite::class, 'vaccination_site_id');
+    }
+
+    public function ifOldCase() {
+        //fetch latest and compare to id
+        $latest = BakunaRecords::where('patient_id', $this->patient->id)->orderBy('created_at', 'DESC')->first();
+
+        if($latest->id == $this->id) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 }

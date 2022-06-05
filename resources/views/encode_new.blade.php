@@ -51,8 +51,9 @@
                         <div>
                             <label for="vaccination_site_id" class="form-label"><strong class="text-danger">*</strong>Encoded Under</label>
                             <select class="form-select" name="vaccination_site_id" id="vaccination_site_id" required>
+                                <option value="" disabled {{(is_null(old('vaccination_site_id'))) ? 'selected' : ''}}>Choose...</option>
                                 @foreach($vslist as $vs)
-                                <option value="{{$vs->id}}" {{(old('vaccination_site_id') == $vs->id) ? 'selected' : ''}}>{{$vs->site_name}}</option>
+                                <option value="{{$vs->id}}" {{(old('vaccination_site_id', auth()->user()->default_vaccinationsite_id) == $vs->id) ? 'selected' : ''}}>{{$vs->site_name}}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -30,7 +30,8 @@ Route::group(['middleware' => ['IsStaff']], function () {
     Route::get('/patient/{id}/edit', [PatientController::class, 'edit'])->name('patient_edit');
     Route::post('/patient/{id}/edit', [PatientController::class, 'update'])->name('patient_update');
     Route::get('/patient/ajaxList', [PatientController::class, 'ajaxList'])->name('patient_ajaxlist');
-
+    
+    Route::get('/patient/bakuna_records/{id}', [PatientController::class, 'patient_viewbakunarecords'])->name('patient_viewbakunarecords');
     Route::post('/patient/quickscan', [VaccinationController::class, 'qr_quicksearch'])->name('qr_quicksearch');
 
     Route::get('/vaccination_site', [AdminController::class, 'vaccinationsite_index'])->name('vaccinationsite_index');

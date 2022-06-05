@@ -25,7 +25,7 @@
               <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#reportpanel"><i class="fa-solid fa-chart-pie me-2"></i>Report</button>
               @if(auth()->user()->is_admin == 1)
               <hr>
-              <a href="" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#adminpanel">Admin Panel</a>
+              <a href="" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#adminpanel"><i class="fa-solid fa-lock me-2"></i>Admin Panel</a>
               @endif
               <hr>
               <button type="button" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#uop"><i class="fa-solid fa-gear me-2"></i>Account Options</button>

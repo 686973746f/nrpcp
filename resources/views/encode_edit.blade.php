@@ -4,19 +4,25 @@
 <form action="{{route('encode_update', ['br_id' => $d->id])}}" method="POST">
     @csrf
     <div class="container">
-        @if($d->outcoume != 'INC')
-            @if($d->outcome == 'C')
-            <div class="alert alert-info" role="alert">
-                <h4>This case was marked as <b class="text-success">FINISHED</b></h4>
-                <hr>
-                <p>To create another case for this Patient, Click <b><a href="{{route('bakuna_again', ['patient_id' => $d->patient->id])}}">HERE</a></b></p>
-            </div>
-            @elseif($d->outcome == 'D')
-            <div class="alert alert-info" role="alert">
-                <h4>The case was marked as closed as the patient was declare <b>Dead.</b></h4>
-                <hr>
-                <p>Modifying details can only be done by an administrator.</p>
-            </div>
+        @if($d->ifOldCase())
+        <div class="alert alert-info" role="alert">
+            <h4><b>OLD RECORD</b>, only an administrator could modify information.</h4>
+        </div>
+        @else
+            @if($d->outcoume != 'INC')
+                @if($d->outcome == 'C')
+                <div class="alert alert-info" role="alert">
+                    <h4>This case was marked as <b class="text-success">FINISHED</b></h4>
+                    <hr>
+                    <p>To create another case for this Patient, Click <b><a href="{{route('bakuna_again', ['patient_id' => $d->patient->id])}}">HERE</a></b></p>
+                </div>
+                @elseif($d->outcome == 'D')
+                <div class="alert alert-info" role="alert">
+                    <h4>The case was marked as closed as the patient was declare <b>Dead.</b></h4>
+                    <hr>
+                    <p>Modifying details can only be done by an administrator.</p>
+                </div>
+                @endif
             @endif
         @endif
         <div class="card">

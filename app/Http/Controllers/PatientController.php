@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Patient;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\BakunaRecords;
 use Illuminate\Support\Facades\DB;
 
 class PatientController extends Controller
@@ -86,8 +87,22 @@ class PatientController extends Controller
     public function edit($id) {
         $data = Patient::findOrFail($id);
 
+        $bcheck = BakunaRecords::where('patient_id', $data->id)->first();
+
         return view('patientlist_edit', [
             'd' => $data,
+            'bcheck' => $bcheck,
+        ]);
+    }
+
+    public function patient_viewbakunarecords($id) {
+        $p = Patient::findOrFail($id);
+
+        $list = BakunaRecords::where('patient_id', $p->id)->orderBy('created_at', 'DESC')->paginate(10);
+
+        return view('patientlist_bakunarecords', [
+            'p' => $p,
+            'list' => $list,
         ]);
     }
     
