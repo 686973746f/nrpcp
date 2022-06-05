@@ -50,7 +50,7 @@ class PatientController extends Controller
         }
 
         if(Patient::ifDuplicateFound($request->lname, $request->fname, $request->mname, $request->suffix, $request->bdate)) {
-            return back()->with('msg', 'Unable to register new patient. Patient details already exists on the server')
+            return back()->with('msg', 'Unable to register new patient. Patient details already exists on the server.')
             ->with('msgtype', 'danger');
         }
         else {

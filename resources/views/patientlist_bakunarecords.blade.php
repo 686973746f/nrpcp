@@ -25,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($list as $b)
+                    @forelse($list as $b)
                     <tr>
                         <td>{{date('m/d/Y', strtotime($b->case_date))}}</td>
                         <td><a href="{{route('encode_edit', ['br_id' => $b->id])}}">{{$b->case_id}}</a></td>
@@ -37,7 +37,11 @@
                         <td>{{$b->outcome}}</td>
                         <td>{{date('m/d/Y h:i A', strtotime($b->created_at))}}</td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="9">No Results Found.</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
             <div class="pagination justify-content-center mt-3">
