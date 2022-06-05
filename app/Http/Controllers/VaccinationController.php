@@ -64,7 +64,22 @@ class VaccinationController extends Controller
 
     public function create_store($id, Request $request) {
         $request->validate([
-
+            'vaccination_site_id' => 'required|numeric',
+            'case_date' => 'required|date',
+            'case_location' => 'nullable',
+            'animal_type' => 'required',
+            'animal_type_others' => ($request->animal_type == 'O') ? 'required' : 'nullable',
+            'bite_date' => 'required|date|min:2000-01-01|max:today',
+            'bite_type' => 'required',
+            'body_site' => 'nullable',
+            'category_level' => 'required',
+            'washing_of_bite' => 'required',
+            'rig_date_given' => 'nullable|date',
+            'pep_route' => 'required',
+            'brand_name' => 'required',
+            'outcome' => 'required',
+            'biting_animal_status' => 'required',
+            'remarks' => 'nullable',
         ]);
 
         $check = BakunaRecords::where('patient_id', $id)
@@ -182,7 +197,53 @@ class VaccinationController extends Controller
     }
 
     public function encode_update($bakuna_id, Request $request) {
+        $request->validate([
+            'vaccination_site_id' => 'required|numeric',
+            'case_date' => 'required|date',
+            'case_location' => 'nullable',
+            'animal_type' => 'required',
+            'animal_type_others' => ($request->animal_type == 'O') ? 'required' : 'nullable',
+            'bite_date' => 'required|date|min:2000-01-01|max:today',
+            'bite_type' => 'required',
+            'body_site' => 'nullable',
+            'category_level' => 'required',
+            'washing_of_bite' => 'required',
+            'rig_date_given' => 'nullable|date',
+            'pep_route' => 'required',
+            'brand_name' => 'required',
+            'outcome' => 'required',
+            'biting_animal_status' => 'required',
+            'remarks' => 'nullable',
+        ]);
 
+        $b = BakunaRecords::findOrFail($bakuna_id);
+
+        $b->vaccination_site_id = $request->vaccination_site_id;
+        $b->case_date = $request->case_date;
+        $b->case_location = ($request->filled('case_location')) ? mb_strtoupper($request->case_location) : NULL;
+        $b->animal_type = $request->animal_type;
+        $b->animal_type_others = ($request->animal_type == 'O') ? mb_strtoupper($request->animal_type_others) : NULL;
+        $b->bite_date = $request->bite_date;
+        $b->bite_type = $request->bite_type;
+        $b->body_site = ($request->filled('body_site')) ? mb_strtoupper($request->body_site) : NULL;
+        $b->category_level = $request->category_level;
+        $b->washing_of_bite = ($request->washing_of_bite == 'Y') ? 1 : 0;
+        $b->rig_date_given = $request->rig_date_given;
+
+        $b->pep_route = $request->pep_route;
+        $b->brand_name = $request->brand_name;
+
+        $b->outcome = $request->outcome;
+        $b->biting_animal_status = $request->biting_animal_status;
+        $b->remarks = $request->remarks;
+
+        if($b->isDirty()) {
+            $b->save();
+        }
+
+        return redirect()->back()
+        ->with('msg', 'Patient Vaccination Information was updated successfully.')
+        ->with('msgtype', 'success');
     }
 
     public function bakuna_again($patient_id) {
@@ -236,5 +297,30 @@ class VaccinationController extends Controller
             'f' => $get_br,
         ])
         ->with('msg', '');
+    }
+
+    public function qr_quicksearch(Request $request) {
+        $sqr = $request->qr;
+
+        $search = Patient::where('qr', $sqr)->first();
+
+        if($search) {
+            //load latest bakuna record
+
+            $b = BakunaRecords::where('patient_id', $search->id)->orderBy('created_at', 'DESC')->first();
+            if($b) {
+                return redirect()->route('encode_existing', ['id' => $search->id]);
+            }
+            else {
+                return redirect()->back()
+                ->with('msg', 'No Anti-Rabies Vaccination Record found for '.$search->getName())
+                ->with('msgtype', 'warning');
+            }
+        }
+        else {
+            return redirect()->back()
+            ->with('msg', 'User does not exist on the server.')
+            ->with('msgtype', 'warning');
+        }
     }
 }

@@ -7,7 +7,7 @@
             <div class="d-flex justify-content-between">
                 <div>Vaccine Brand List</div>
                 <div>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addvb">Add</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addvb"><i class="fa-solid fa-circle-plus me-2"></i>Add</button>
                 </div>
             </div>
         </div>

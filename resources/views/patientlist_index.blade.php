@@ -13,33 +13,51 @@
             @if(session('msg'))
             <div class="alert alert-{{session('msgtype')}}" role="alert">
                 {{session('msg')}}
+                @if(session('pid'))
+                <hr>
+                <p>You may continue creating Anti-Rabies Vaccination for the Patient by Clicking <b><a href="{{route('encode_create_new', ['id' => session('pid')])}}">HERE</a></b></p>
+                @endif
             </div>
             @endif
-            
-            <table class="table table-bordered">
-                <thead class="bg-light text-center">
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Age/Gender</th>
-                        <th>Contact Number</th>
-                        <th>Address</th>
-                        <th>Date Encoded / By</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($list as $d)
-                    <tr>
-                        <td scope="row">{{$d->id}}</td>
-                        <td><a href="{{route('patient_edit', ['id' => $d->id])}}">{{$d->getName()}}</a></td>
-                        <td class="text-center">{{$d->getAge()}} / {{$d->sg()}}</td>
-                        <td class="text-center">{{$d->contact_number}}</td>
-                        <td><small>{{$d->getAddress()}}</small></td>
-                        <td class="text-center">{{date('m/d/Y H:i A', strtotime($d->created_at))}} / {{$d->user->name}}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            <form action="{{route('patient_index')}}" method="GET">
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="q" value="{{request()->input('q')}}" placeholder="Search by Name / ID" required>
+                            <div class="input-group-append">
+                              <button class="btn btn-secondary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="bg-light text-center">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Age/Gender</th>
+                            <th>Contact Number</th>
+                            <th>Address</th>
+                            <th>Date Encoded / By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($list as $d)
+                        <tr>
+                            <td class="text-center">{{$d->id}}</td>
+                            <td><a href="{{route('patient_edit', ['id' => $d->id])}}">{{$d->getName()}}</a></td>
+                            <td class="text-center">{{$d->getAge()}} / {{$d->sg()}}</td>
+                            <td class="text-center">{{$d->contact_number}}</td>
+                            <td><small>{{$d->getAddress()}}</small></td>
+                            <td class="text-center">{{date('m/d/Y H:i A', strtotime($d->created_at))}} / {{$d->user->name}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
             <div class="pagination justify-content-center mt-3">
                 {{$list->appends(request()->input())->links()}}
             </div>

@@ -10,8 +10,19 @@ use Illuminate\Support\Facades\DB;
 class PatientController extends Controller
 {
     public function index() {
-        $list = Patient::orderBy('lname', 'ASC')->paginate(10);
-
+        if(request()->input('q')) {
+            $list = Patient::where(function ($q) {
+                $q->where(DB::raw('CONCAT(lname," ",fname," ", mname)'), 'LIKE', "%".str_replace(',','',mb_strtoupper(request()->input('q')))."%")
+                ->orWhere(DB::raw('CONCAT(lname," ",fname)'), 'LIKE', "%".str_replace(',','',mb_strtoupper(request()->input('q')))."%")
+                ->orWhere('id', request()->input('q'));
+            })
+            ->orderByRaw('lname ASC, fname ASC, mname ASC')
+            ->paginate(10);
+        }
+        else {
+            $list = Patient::orderBy('lname', 'ASC')->paginate(10);
+        }
+        
         return view('patientlist_index', [
             'list' => $list,
         ]);
@@ -67,16 +78,60 @@ class PatientController extends Controller
     
             return redirect()->route('patient_index')
             ->with('msg', 'Patient was added successfully.')
+            ->with('pid', $create->id)
             ->with('msgtype', 'success');
         }
     }
 
     public function edit($id) {
+        $data = Patient::findOrFail($id);
 
+        return view('patientlist_edit', [
+            'd' => $data,
+        ]);
     }
     
     public function update($id, Request $request) {
+        $request->validate([
 
+        ]);
+
+        $p = Patient::findOrFail($id);
+
+        if(Patient::detectChangeName($request->lname, $request->fname, $request->mname, $request->suffix, $request->bdate, $p->id)) {
+            return redirect()->back()
+            ->with('msg', 'Unable to update. Patient already exists.')
+            ->with('msgtype', 'warning');
+        }
+        else {
+            $p->lname = $request->lname;
+            $p->fname = $request->fname;
+            $p->mname = ($request->filled('mname')) ? $request->mname : NULL;
+            $p->suffix = ($request->filled('suffix')) ? $request->suffix : NULL;
+            $p->bdate = $request->bdate;
+            $p->gender = $request->gender;
+            $p->contact_number = $request->contact_number;
+            $p->address_region_code = $request->address_region_code;
+            $p->address_region_text = $request->address_region_text;
+            $p->address_province_code = $request->address_province_code;
+            $p->address_province_text = $request->address_province_text;
+            $p->address_muncity_code = $request->address_muncity_code;
+            $p->address_muncity_text = $request->address_muncity_text;
+            $p->address_brgy_code = $request->address_brgy_text;
+            $p->address_brgy_text = $request->address_brgy_text;
+            $p->address_street = $request->address_street;
+            $p->address_houseno = $request->address_houseno;
+
+            $p->remarks = ($request->filled('remarks')) ? $request->remarks : NULL;
+
+            if($p->isDirty()) {
+                $p->save();
+            }
+
+            return redirect()->route('patient_index')
+            ->with('msg', 'Patient ['.$p->getName().' - #'.$p->id.'] was updated successfully.')
+            ->with('msgtype', 'success');
+        }
     }
 
     public function ajaxList(Request $request) {

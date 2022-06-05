@@ -25,7 +25,7 @@
                             </tr>
                             <tr>
                                 <td class="bg-light" style="vertical-align: middle"><strong>Address</strong></td>
-                                <td>{{$d->patient->getAddress()}}</td>
+                                <td><small>{{$d->patient->getAddress()}}</small></td>
                             </tr>
                             <tr>
                                 <td class="bg-light" style="vertical-align: middle"><strong>Contact No.</strong></td>

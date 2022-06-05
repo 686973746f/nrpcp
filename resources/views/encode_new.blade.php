@@ -5,7 +5,7 @@
     @csrf
     <div class="container">
         <div class="card">
-            <div class="card-header"><strong>Create New Anti-Rabies Vaccination for {{$d->getName()}}</strong></div>
+            <div class="card-header"><strong>Create New Anti-Rabies Vaccination - Patient #{{$d->id}}</strong></div>
             <div class="card-body">
                 @if(session('msg'))
                 <div class="alert alert-{{session('msgtype')}}" role="alert">
@@ -23,7 +23,7 @@
                 @endif
 
                 <div class="alert alert-info" role="alert">
-                    Note: All Fields marked with an asterisk (<strong class="text-danger">*</strong>) are required fields.
+                    <b>Note:</b> All Fields marked with an asterisk (<strong class="text-danger">*</strong>) are required fields.
                 </div>
                 <table class="table table-bordered">
                     <tbody class="text-center">
@@ -186,7 +186,7 @@
                                 <option value="D" {{(old('pep_route') == 'D') ? 'selected' : ''}}>Died (D)</option>
                                 <option value="N" {{(old('pep_route') == 'N') ? 'selected' : ''}}>None (N)</option>
                             </select>
-                            <small class="text-muted">Will be automatically changed based on vaccination status.</small>
+                            <small class="text-muted">Will be automatically changed based on completed doses.</small>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -208,7 +208,7 @@
                 </div>
             </div>
             <div class="card-footer text-end">
-                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk me-2"></i>Save</button>
             </div>
         </div>
     </div>

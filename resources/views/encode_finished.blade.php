@@ -15,8 +15,8 @@
                     <p><strong>Name:</strong> <u>{{$f->patient->getName()}}</u></p>
                     <p><strong>Age/Gender:</strong> <u>{{$f->patient->getAge()}} / {{$f->patient->sg()}}</u></p>
                     <p><strong>Address:</strong> <u>{{$f->patient->getAddressMini()}}</u></p>
-                    <p><strong>Date of Bite:</strong> <u>{{date('m/d/Y (l)', strtotime($f->bite_date))}}</u> • <strong>Body Part:</strong> <u>{{$f->body_site}}</u></p>
-                    <p><strong>Category:</strong> <u>{{$f->category_level}}</u></p>
+                    <p><strong>Type of Animal:</strong> • <strong>Date of Bite:</strong> <u>{{date('m/d/Y (l)', strtotime($f->bite_date))}}</u> </p>
+                    <p><strong>Body Part:</strong> <u>{{$f->body_site}} • <strong>Category:</strong> <u>{{$f->category_level}}</u></p>
                     <p><strong>Health Facility:</strong> <u>{{$f->vaccinationsite->site_name}}</u></p>
 
                     <table class="table table-bordered table-striped">

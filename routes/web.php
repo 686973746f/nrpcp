@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\VaccinationController;
 
@@ -28,6 +29,8 @@ Route::group(['middleware' => ['IsStaff']], function () {
     Route::post('/patient/{id}/edit', [PatientController::class, 'update'])->name('patient_update');
     Route::get('/patient/ajaxList', [PatientController::class, 'ajaxList'])->name('patient_ajaxlist');
 
+    Route::post('/patient/quickscan', [VaccinationController::class, 'qr_quicksearch'])->name('qr_quicksearch');
+
     Route::get('/vaccination_site', [AdminController::class, 'vaccinationsite_index'])->name('vaccinationsite_index');
     Route::post('/vaccination_site', [AdminController::class, 'vaccinationsite_store'])->name('vaccinationsite_store');
 
@@ -44,6 +47,9 @@ Route::group(['middleware' => ['IsStaff']], function () {
     Route::post('/encode/edit/{br_id}', [VaccinationController::class, 'encode_update'])->name('encode_update');
 
     Route::get('/encode/process_vaccination/{br_id}/{dose}', [VaccinationController::class, 'encode_process'])->name('encode_process');
+
+    Route::get('/report/linelist', [ReportController::class, 'linelist_index'])->name('report_linelist_index');
+    Route::post('/report/export1', [ReportController::class, 'export1'])->name('report_export1');
 });
 
 Route::get('/home', function() {

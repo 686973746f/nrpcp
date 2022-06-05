@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<form action="{{route('patient_store')}}" method="POST">
+<form action="{{route('patient_update', ['id' => $d->id])}}" method="POST">
     @csrf
     <div class="container">
         <div class="card">
-            <div class="card-header"><strong><i class="fa-solid fa-circle-plus me-2"></i>Add Patient</strong></div>
+            <div class="card-header"><strong><i class="fa-solid fa-user-gear me-2"></i>Edit Patient</strong></div>
             <div class="card-body">
                 @if(session('msg'))
                 <div class="alert alert-{{session('msgtype')}}" role="alert">
@@ -19,25 +19,25 @@
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label for="lname" class="form-label"><b class="text-danger">*</b>Last Name</label>
-                            <input type="text" class="form-control" name="lname" id="lname" value="{{old('lname')}}" maxlength="50" placeholder="DELA CRUZ" required>
+                            <input type="text" class="form-control" name="lname" id="lname" value="{{old('lname', $d->lname)}}" maxlength="50" placeholder="DELA CRUZ" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label for="fname" class="form-label"><b class="text-danger">*</b>First Name</label>
-                            <input type="text" class="form-control" name="fname" id="fname" value="{{old('fname')}}" maxlength="50" placeholder="JUAN" required>
+                            <input type="text" class="form-control" name="fname" id="fname" value="{{old('fname' , $d->fname)}}" maxlength="50" placeholder="JUAN" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label for="mname" class="form-label">Middle Name <i><small>(If Applicable)</small></i></label>
-                            <input type="text" class="form-control" name="mname" id="mname" value="{{old('mname')}}" placeholder="SANCHEZ" maxlength="50">
+                            <input type="text" class="form-control" name="mname" id="mname" value="{{old('mname' , $d->mname)}}" placeholder="SANCHEZ" maxlength="50">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label for="suffix" class="form-label">Suffix <i><small>(If Applicable)</small></i></label>
-                            <input type="text" class="form-control" name="suffix" id="suffix" value="{{old('suffix')}}" maxlength="3" placeholder="e.g JR, SR, III, IV">
+                            <input type="text" class="form-control" name="suffix" id="suffix" value="{{old('suffix' , $d->suffix)}}" maxlength="3" placeholder="e.g JR, SR, III, IV">
                         </div>
                     </div>
                 </div>
@@ -45,23 +45,23 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                           <label for="bdate" class="form-label"><b class="text-danger">*</b>Birthdate</label>
-                          <input type="date" class="form-control" name="bdate" id="bdate" value="{{old('bdate')}}" min="1900-01-01" max="{{date('Y-m-d', strtotime('yesterday'))}}" required>
+                          <input type="date" class="form-control" name="bdate" id="bdate" value="{{old('bdate', $d->bdate)}}" min="1900-01-01" max="{{date('Y-m-d', strtotime('yesterday'))}}" required>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="gender" class="form-label"><span class="text-danger font-weight-bold">*</span>Gender</label>
+                            <label for="gender" class="form-label"><b class="text-danger">*</b>Gender</label>
                             <select class="form-select" name="gender" id="gender" required>
-                                <option value="" disabled {{(is_null(old('gender'))) ? 'selected' : ''}}>Choose...</option>
-                                <option value="MALE" {{(old('gender') == 'MALE') ? 'selected' : ''}}>Male</option>
-                                <option value="FEMALE" {{(old('gender') == 'FEMALE') ? 'selected' : ''}}>Female</option>
+                                <option value="" disabled {{(is_null(old('gender', $d->gender))) ? 'selected' : ''}}>Choose...</option>
+                                <option value="MALE" {{(old('gender', $d->gender) == 'MALE') ? 'selected' : ''}}>Male</option>
+                                <option value="FEMALE" {{(old('gender', $d->gender) == 'FEMALE') ? 'selected' : ''}}>Female</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="contact_number" class="form-label"><span class="text-danger font-weight-bold">*</span>Contact Number (Mobile)</label>
-                            <input type="text" class="form-control" id="contact_number" name="contact_number" value="{{old('contact_number', '09')}}" pattern="[0-9]{11}" placeholder="09xxxxxxxxx" required>
+                            <label for="contact_number" class="form-label"><b class="text-danger">*</b>Contact Number (Mobile)</label>
+                            <input type="text" class="form-control" id="contact_number" name="contact_number" value="{{old('contact_number', $d->contact_number)}}" pattern="[0-9]{11}" placeholder="09xxxxxxxxx" required>
                         </div>
                     </div>
                 </div>
@@ -69,27 +69,27 @@
                 <div id="address_text" class="d-none">
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="text" id="address_region_text" name="address_region_text" value="{{old('address_region_text')}}" readonly>
+                            <input type="text" id="address_region_text" name="address_region_text" value="{{old('address_region_text', $d->address_region_text)}}" readonly>
                         </div>
                         <div class="col-md-6">
-                            <input type="text" id="address_province_text" name="address_province_text" value="{{old('address_province_text')}}" readonly>
+                            <input type="text" id="address_province_text" name="address_province_text" value="{{old('address_province_text', $d->address_region_text)}}" readonly>
                         </div>
                         <div class="col-md-6">
-                            <input type="text" id="address_muncity_text" name="address_muncity_text" value="{{old('address_muncity_text')}}" readonly>
+                            <input type="text" id="address_muncity_text" name="address_muncity_text" value="{{old('address_muncity_text', $d->address_region_text)}}"readonly>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                          <label for="address_region_code" class="form-label"><span class="text-danger font-weight-bold">*</span>Region</label>
+                          <label for="address_region_code" class="form-label"><b class="text-danger">*</b>Region</label>
                           <select class="form-select" name="address_region_code" id="address_region_code" required>
                           </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="address_province_code" class="form-label"><span class="text-danger font-weight-bold">*</span>Province</label>
+                            <label for="address_province_code" class="form-label"><b class="text-danger">*</b>Province</label>
                             <select class="form-select" name="address_province_code" id="address_province_code" required>
                             </select>
                         </div>
@@ -98,14 +98,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="address_muncity_code" class="form-label"><span class="text-danger font-weight-bold">*</span>City/Municipality</label>
+                            <label for="address_muncity_code" class="form-label"><b class="text-danger">*</b>City/Municipality</label>
                             <select class="form-select" name="address_muncity_code" id="address_muncity_code" required>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="address_brgy_text" class="form-label"><span class="text-danger font-weight-bold">*</span>Barangay</label>
+                            <label for="address_brgy_text" class="form-label"><b class="text-danger">*</b>Barangay</label>
                             <select class="form-select" name="address_brgy_text" id="address_brgy_text" required>
                             </select>
                         </div>
@@ -114,25 +114,25 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="address_houseno" class="form-label"><span class="text-danger font-weight-bold">*</span>House No./Lot/Building</label>
-                            <input type="text" class="form-control" id="address_houseno" name="address_houseno" style="text-transform: uppercase;" value="{{old('address_houseno')}}" pattern="(^[a-zA-Z0-9 ]+$)+" required>
+                            <label for="address_houseno" class="form-label"><b class="text-danger">*</b>House No./Lot/Building</label>
+                            <input type="text" class="form-control" id="address_houseno" name="address_houseno" style="text-transform: uppercase;" value="{{old('address_houseno', $d->address_houseno)}}" pattern="(^[a-zA-Z0-9 ]+$)+" required>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="address_street" class="form-label"><span class="text-danger font-weight-bold">*</span>Street/Subdivision/Purok/Sitio</label>
-                            <input type="text" class="form-control" id="address_street" name="address_street" style="text-transform: uppercase;" value="{{old('address_street')}}" pattern="(^[a-zA-Z0-9 ]+$)+" required>
+                            <label for="address_street" class="form-label"><b class="text-danger">*</b>Street/Subdivision/Purok/Sitio</label>
+                            <input type="text" class="form-control" id="address_street" name="address_street" style="text-transform: uppercase;" value="{{old('address_street', $d->address_street)}}" pattern="(^[a-zA-Z0-9 ]+$)+" required>
                         </div>
                     </div>
                 </div>
                 <hr>
                 <div class="mb-3">
                   <label for="remarks" class="form-label">Remarks <i>(If Applicable)</i></label>
-                  <textarea class="form-control" name="remarks" id="remarks" rows="3">{{old('remarks')}}</textarea>
+                  <textarea class="form-control" name="remarks" id="remarks" rows="3">{{old('remarks', $d->remarks)}}</textarea>
                 </div>
             </div>
             <div class="card-footer text-end">
-                <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk me-2"></i>Save</button>
+                <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk me-2"></i>Update</button>
             </div>
         </div>
     </div>
@@ -143,6 +143,11 @@
     $('#address_region_code, #address_province_code, #address_muncity_code, #address_brgy_text').select2({
         theme: 'bootstrap',
     });
+
+    var rdefault = '{{$d->address_region_code}}';
+    var pdefault = '{{$d->address_province_code}}';
+    var cdefault = '{{$d->address_muncity_code}}';
+    var bdefault = '{{$d->address_brgy_text}}';
 
     //Region Select Initialize
     $.getJSON("{{asset('json/refregion.json')}}", function(data) {
@@ -161,7 +166,7 @@
             $('#address_region_code').append($('<option>', {
                 value: val.regCode,
                 text: val.regDesc,
-                selected: (val.regCode == '04') ? true : false, //default is Region IV-A
+                selected: (val.regCode == rdefault) ? true : false, //default is Region IV-A
             }));
         });
     });
@@ -198,7 +203,7 @@
                     $('#address_province_code').append($('<option>', {
                         value: val.provCode,
                         text: val.provDesc,
-                        selected: (val.provCode == '0421') ? true : false, //default for Cavite
+                        selected: (val.provCode == pdefault) ? true : false, //default for Cavite
                     }));
                 }
             });
@@ -233,7 +238,7 @@
                     $('#address_muncity_code').append($('<option>', {
                         value: val.citymunCode,
                         text: val.citymunDesc,
-                        selected: (val.citymunCode == '042108') ? true : false, //default for General Trias
+                        selected: (val.citymunCode == cdefault) ? true : false, //default for General Trias
                     })); 
                 }
             });
@@ -268,6 +273,7 @@
                     $('#address_brgy_text').append($('<option>', {
                         value: val.brgyDesc.toUpperCase(),
                         text: val.brgyDesc.toUpperCase(),
+                        selected: (val.brgyDesc.toUpperCase() == bdefault) ? true : false,
                     }));
                 }
             });

@@ -4,12 +4,20 @@
 <form action="{{route('encode_update', ['br_id' => $d->id])}}" method="POST">
     @csrf
     <div class="container">
+        @if($d->outcoume != 'INC')
+            @if($d->outcome == 'C')
+            <div class="alert alert-info" role="alert">
+                <h4>This case was marked as <b class="text-success">FINISHED</b></h4>
+                <hr>
+                <p>To create booster shot for</p>
+            </div>
+            @elseif($d->outcome == 'D')
+
+            @endif
+        @endif
         <div class="card">
-            <div class="card-header"><strong>Edit Anti-Rabies Vaccination Details for {{$d->patient->getName()}}</strong></div>
+            <div class="card-header"><strong>Edit Anti-Rabies Vaccination Details - Patient #{{$d->patient->id}}</strong></div>
             <div class="card-body">
-                @if($d->outcome == 'C')
-                
-                @endif
                 @if(session('msg'))
                 <div class="alert alert-{{session('msgtype')}}" role="alert">
                     {{session('msg')}}
@@ -192,36 +200,56 @@
                             <td>Day 3</td>
                             <td>{{date('m/d/Y (l)', strtotime($d->d3_date))}}</td>
                             <td>
-                                <p>1 {{strtotime(date('Y-m-d'))}}</p>
-                                <p>2 {{$d->d3_date}} {{date('Y-m-d')}}</p>
-                                @if($d->d3_date)
-                                asdasd
-                                <a href="{{route('encode_process', ['br_id' => $d->id, 'dose' => 2])}}" class="btn btn-primary" onclick="return confirm('The patient should be present and injected with the 3rd Day Dose. Click OK to Continue.')">Mark as Done</a>
+                                @if($d->d3_done == 1)
+                                <strong class="text-success">DONE</strong>
+                                @else
+                                    @if(date('Y-m-d') == $d->d3_date)
+                                    <a href="{{route('encode_process', ['br_id' => $d->id, 'dose' => 2])}}" class="btn btn-primary" onclick="return confirm('The patient should be present and injected with the 3rd Day Dose. Click OK to Continue.')">Mark as Done</a>
+                                    @endif
                                 @endif
                             </td>
                         </tr>
                         <tr>
                             <td>Day 7</td>
                             <td>{{date('m/d/Y (l)', strtotime($d->d7_date))}}</td>
-                            <td></td>
+                            <td>
+                                @if($d->d7_done == 1)
+                                <strong class="text-success">DONE</strong>
+                                @else
+                                    @if(date('Y-m-d') == $d->d7_date)
+                                    <a href="{{route('encode_process', ['br_id' => $d->id, 'dose' => 3])}}" class="btn btn-primary" onclick="return confirm('The patient should be present and injected with the 7th Day Dose. Click OK to Continue.')">Mark as Done</a>
+                                    @endif
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <td>Day 14</td>
                             <td>{{date('m/d/Y (l)', strtotime($d->d14_date))}}</td>
-                            <td></td>
+                            <td>
+                                @if($d->d14_done == 1)
+                                <strong class="text-success">DONE</strong>
+                                @else
+                                    @if(date('Y-m-d') == $d->d14_date)
+                                    <a href="{{route('encode_process', ['br_id' => $d->id, 'dose' => 4])}}" class="btn btn-primary" onclick="return confirm('The patient should be present and injected with the 14th Day Dose. Click OK to Continue.')">Mark as Done</a>
+                                    @endif
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <td>Day 28</td>
                             <td>{{date('m/d/Y (l)', strtotime($d->d28_date))}}</td>
-                            <td></td>
+                            <td>
+                                @if($d->d28_done == 1)
+                                <strong class="text-success">DONE</strong>
+                                @else
+                                    @if(date('Y-m-d') == $d->d28_date)
+                                    <a href="{{route('encode_process', ['br_id' => $d->id, 'dose' => 5])}}" class="btn btn-primary" onclick="return confirm('The patient should be present and injected with the 28th Day Dose. Click OK to Continue.')">Mark as Done</a>
+                                    @endif
+                                @endif
+                            </td>
                         </tr>
                     </tbody>
                 </table>
-                
-                <div class="mb-3">
-                    <label for="d0_date" class="form-label"><strong class="text-danger">*</strong>First Vaccine / Day 0 Date</label>
-                    <input type="date" class="form-control" name="d0_date" id="d0_date" min="2000-01-01" max="{{date('Y-m-d')}}" value="{{$d->d0_date}}" required readonly>
-                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="">
@@ -232,7 +260,7 @@
                                 <option value="D" {{(old('pep_route', $d->outcome) == 'D') ? 'selected' : ''}}>Died (D)</option>
                                 <option value="N" {{(old('pep_route', $d->outcome) == 'N') ? 'selected' : ''}}>None (N)</option>
                             </select>
-                            <small class="text-muted">Will be automatically changed based on vaccination status.</small>
+                            <small class="text-muted">Will be automatically changed based on completed doses.</small>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -254,11 +282,11 @@
                 </div>
             </div>
             <div class="card-footer text-end">
-                @if($d->outcome != 'C')
-                <button type="submit" class="btn btn-success">Submit</button>
+                @if($d->outcome == 'INC')
+                <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk me-2"></i>Update</button>
                 @else
-                <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Unable to update. The Outcome is already COMPLETED.">
-                    <button class="btn btn-success" type="button" disabled>Submit</button>
+                <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Unable to update. The Case was marked as COMPLETED.">
+                    <button class="btn btn-success" type="button" disabled><i class="fa-solid fa-floppy-disk me-2"></i>Update</button>
                 </span>
                 @endif
             </div>

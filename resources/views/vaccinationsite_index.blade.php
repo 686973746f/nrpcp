@@ -6,7 +6,7 @@
         <div class="card-header">
             <div class="d-flex justify-content-between">
                 <div>Vaccination Sites</div>
-                <div><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addvs">Add</button></div>
+                <div><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addvs"><i class="fa-solid fa-circle-plus me-2"></i>Add</button></div>
             </div>
         </div>
         <div class="card-body">
@@ -27,9 +27,9 @@
                 <tbody>
                     @foreach($list as $d)
                     <tr>
-                        <td>{{$d->id}}</td>
+                        <td class="text-center">{{$d->id}}</td>
                         <td>{{$d->site_name}}</td>
-                        <td>{{date('m/d/Y H:i A', strtotime($d->created_at))}}</td>
+                        <td class="text-center">{{date('m/d/Y H:i A', strtotime($d->created_at))}}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk me-2"></i>Save</button>
                 </div>
             </div>
         </div>
