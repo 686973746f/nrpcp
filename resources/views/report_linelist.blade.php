@@ -3,7 +3,12 @@
 @section('content')
 <div class="container-fluid">
     <div class="card">
-        <div class="card-header">Linelist</div>
+        <div class="card-header">
+            <div class="d-flex justify-content-between">
+                <div>Linelist</div>
+                <div><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#halp"><i class="fa-solid fa-circle-question me-2"></i>Help</button></div>
+            </div>
+        </div>
         <div class="card-body">
             <form action="{{route('report_linelist_index')}}" method="GET">
                 <div class="input-group">
@@ -88,14 +93,28 @@
                         @endforelse
                     </tbody>
                 </table>
-                <p><strong>Registration Number:</strong> (Current Year) - 001 (Chronologic number)</p>
-                <p><strong>Registration Date:</strong> Date Patient was first seen, regardless whether patient was given PEP or not.</p>
-                <p><strong>Type of Animal:</strong> <b>(PD)</b> Pet Dog, <b>(SD)</b> Stray Dog - Owned or ownerless dogs freely roaming the community. <b>(C)</b> Cat, <b>(O)</b> Others</p>
-                <p><strong></strong> <b>(B)</b> Bite and (NB) None Bite, to include all non-biting rabies exposures (earing of raw meat, splattering, kissing and others)</p>
-                <p><strong>Outcome:</strong> <b>(C)</b> Completed - Patients received at least days 0, 3 and 7 doses, <b>(INC)</b> Incomplete - Patients who did not receive at least days 0, 3 and 7. <b>(D)</b> Died - Patient who died at whatever cause while on PEOP. <b>(N)</b> None - Category II and III exposures who did not receive any of the TCV doses.</p>
-                <p><strong>Status of Biting Animal:</strong> <b>(A)</b> Alive, <b>(D)</b> Dead and <b>(L)</b> Lost - Animal not available for observation for 14 Days.</p>
+                
             </div>
             
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="halp" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id=""><i class="fa-solid fa-circle-question me-2"></i>Help</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p><strong>Registration Number:</strong> (Current Year) - 001 (Chronologic number)</p>
+            <p><strong>Registration Date:</strong> Date Patient was first seen, regardless whether patient was given PEP or not.</p>
+            <p><strong>Type of Animal:</strong> <b>(PD)</b> Pet Dog, <b>(SD)</b> Stray Dog - Owned or ownerless dogs freely roaming the community. <b>(C)</b> Cat, <b>(O)</b> Others</p>
+            <p><strong></strong> <b>(B)</b> Bite and (NB) None Bite, to include all non-biting rabies exposures (earing of raw meat, splattering, kissing and others)</p>
+            <p><strong>Outcome:</strong> <b>(C)</b> Completed - Patients received at least days 0, 3 and 7 doses, <b>(INC)</b> Incomplete - Patients who did not receive at least days 0, 3 and 7. <b>(D)</b> Died - Patient who died at whatever cause while on PEOP. <b>(N)</b> None - Category II and III exposures who did not receive any of the TCV doses.</p>
+            <p><strong>Status of Biting Animal:</strong> <b>(A)</b> Alive, <b>(D)</b> Dead and <b>(L)</b> Lost - Animal not available for observation for 14 Days.</p>
+        </div>
         </div>
     </div>
 </div>

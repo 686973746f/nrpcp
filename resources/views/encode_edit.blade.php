@@ -9,10 +9,14 @@
             <div class="alert alert-info" role="alert">
                 <h4>This case was marked as <b class="text-success">FINISHED</b></h4>
                 <hr>
-                <p>To create booster shot for</p>
+                <p>To create another case for this Patient, Click <b><a href="{{route('bakuna_again', ['patient_id' => $d->patient->id])}}">HERE</a></b></p>
             </div>
             @elseif($d->outcome == 'D')
-
+            <div class="alert alert-info" role="alert">
+                <h4>The case was marked as closed as the patient was declare <b>Dead.</b></h4>
+                <hr>
+                <p>Modifying details can only be done by an administrator.</p>
+            </div>
             @endif
         @endif
         <div class="card">
@@ -255,7 +259,6 @@
                         <div class="">
                             <label for="outcome" class="form-label"><strong class="text-danger">*</strong>Outcome</label>
                             <select class="form-select" name="outcome" id="outcome" required>
-                                <option value="" disabled {{is_null(old('outcome', $d->outcome)) ? 'selected' : ''}}>Choose...</option>
                                 <option value="INC" {{(old('pep_route', $d->outcome) == 'INC') ? 'selected' : ''}}>Incomplete (INC)</option>
                                 <option value="D" {{(old('pep_route', $d->outcome) == 'D') ? 'selected' : ''}}>Died (D)</option>
                                 <option value="N" {{(old('pep_route', $d->outcome) == 'N') ? 'selected' : ''}}>None (N)</option>

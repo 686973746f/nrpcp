@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('patient_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('vaccination_site_id')->constrained('vaccination_sites')->onDelete('cascade');
             $table->text('case_id');
+            $table->tinyInteger('is_booster')->default(0);
             $table->date('case_date');
             $table->text('case_location');
             $table->string('animal_type');

@@ -15,6 +15,19 @@
                 <div class="alert alert-info" role="alert">
                     Note: All Fields marked with an asterisk (<strong class="text-danger">*</strong>) are required fields.
                 </div>
+                <table class="table table-bordered text-center">
+                    <tbody>
+                        <tr>
+                            <td class="bg-light"><b>Created At / By</b></td>
+                            <td>{{date('m/d/Y H:i A', strtotime($d->created_at))}}</td>
+                        </tr>
+                        <tr>
+                            <td class="bg-light"><b>Updated At / By</b></td>
+                            <td>{{date('m/d/Y H:i A', strtotime($d->updated_at))}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="mb-3">

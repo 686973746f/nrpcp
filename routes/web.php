@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\VaccinationSite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\VaccinationController;
+use App\Http\Controllers\UserSettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,17 +50,27 @@ Route::group(['middleware' => ['IsStaff']], function () {
 
     Route::get('/encode/process_vaccination/{br_id}/{dose}', [VaccinationController::class, 'encode_process'])->name('encode_process');
 
+    Route::get('/encode/rebakuna/{patient_id}', [VaccinationController::class, 'bakuna_again'])->name('bakuna_again');
+
     Route::get('/report/linelist', [ReportController::class, 'linelist_index'])->name('report_linelist_index');
     Route::post('/report/export1', [ReportController::class, 'export1'])->name('report_export1');
+
+    Route::post('/settings/save', [UserSettingsController::class, 'save_settings'])->name('save_settings');
 });
 
 Route::get('/home', function() {
-    return view('home');
+    $vslist = VaccinationSite::where('enabled', 1)->orderBy('id', 'ASC')->get();
+    return view('home', [
+        'vslist' => $vslist,
+    ]);
 })->name('home');
 
 Route::get('/', function () {
     if(auth()->check()) {
-        return view('home');
+        $vslist = VaccinationSite::where('enabled', 1)->orderBy('id', 'ASC')->get();
+        return view('home', [
+            'vslist' => $vslist,
+        ]);
     }
     else {
         return view('auth.login');

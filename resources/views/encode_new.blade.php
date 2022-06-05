@@ -181,7 +181,6 @@
                         <div class="">
                             <label for="outcome" class="form-label"><strong class="text-danger">*</strong>Outcome</label>
                             <select class="form-select" name="outcome" id="outcome" required>
-                                <option value="" disabled {{is_null(old('outcome')) ? 'selected' : ''}}>Choose...</option>
                                 <option value="INC" {{(old('pep_route') == 'INC') ? 'selected' : ''}}>Incomplete (INC)</option>
                                 <option value="D" {{(old('pep_route') == 'D') ? 'selected' : ''}}>Died (D)</option>
                                 <option value="N" {{(old('pep_route') == 'N') ? 'selected' : ''}}>None (N)</option>

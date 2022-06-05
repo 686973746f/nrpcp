@@ -7,8 +7,10 @@
             <div class="card border-success">
                 <div class="card-header text-center bg-success text-white"><strong><i class="fa-solid fa-circle-check me-2"></i>Success!</strong></div>
                 <div class="card-body text-center">
-                    <p>You have finished your 1st Dose of Anti-Rabies Vaccine.</p>
+                    <p>{{session('msg')}}</p>
+                    @if(session('dose') != 5)
                     <p>Please see the details below for your next schedule:</p>
+                    @endif
                     <hr>
                     {!! QrCode::size(150)->generate($f->patient->qr) !!}
                     <p><strong>Registration #:</strong> <u>{{$f->case_id}}</u></p>

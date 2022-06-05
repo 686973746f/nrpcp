@@ -69,7 +69,7 @@ class VaccinationController extends Controller
             'case_location' => 'nullable',
             'animal_type' => 'required',
             'animal_type_others' => ($request->animal_type == 'O') ? 'required' : 'nullable',
-            'bite_date' => 'required|date|min:2000-01-01|max:today',
+            'bite_date' => 'required|date|after_or_equal:2000-01-01|before_or_equal:today',
             'bite_type' => 'required',
             'body_site' => 'nullable',
             'category_level' => 'required',
@@ -89,6 +89,15 @@ class VaccinationController extends Controller
         })->first();
 
         if(!($check)) {
+            //Check if Booster Dose (If May Case na dati)
+            $booster_check = BakunaRecords::where('patient_id', $id)->where('outcome', 'C')->first();
+            if($booster_check) {
+                $is_booster = 1;
+            }
+            else {
+                $is_booster = 0;
+            }
+
             $case_id = date('Y').'-'.(BakunaRecords::whereYear('created_at', date('Y'))->count() + 1);
 
             //Days Calculation (Skip and Wednesdays, Saturdays and Sundays due to Government Office Hours)
@@ -146,6 +155,7 @@ class VaccinationController extends Controller
                 'patient_id' => $id,
                 'vaccination_site_id' => $request->vaccination_site_id,
                 'case_id' => $case_id,
+                'is_booster' => $is_booster,
                 'case_date' => $request->case_date,
                 'case_location' => ($request->filled('case_location')) ? mb_strtoupper($request->case_location) : NULL,
                 'animal_type' => $request->animal_type,
@@ -174,7 +184,8 @@ class VaccinationController extends Controller
             return view('encode_finished', [
                 'f' => $f,
             ])
-            ->with('msg', '');
+            ->with('msg', 'You have finished your 1st Dose of your Anti-Rabies Vaccine.')
+            ->with('dose', 1);
         }
         else {
             return redirect()->route('home')
@@ -203,7 +214,7 @@ class VaccinationController extends Controller
             'case_location' => 'nullable',
             'animal_type' => 'required',
             'animal_type_others' => ($request->animal_type == 'O') ? 'required' : 'nullable',
-            'bite_date' => 'required|date|min:2000-01-01|max:today',
+            'bite_date' => 'required|date|after_or_equal:2000-01-01|before_or_equal:today',
             'bite_type' => 'required',
             'body_site' => 'nullable',
             'category_level' => 'required',
@@ -237,6 +248,11 @@ class VaccinationController extends Controller
         $b->biting_animal_status = $request->biting_animal_status;
         $b->remarks = $request->remarks;
 
+        //Checking of Outcome on Category 3 with Erig
+        if($b->category_level == 3 && $b->d28_done == 1 && !is_null($b->rig_date_given)) {
+            $b->outcome == 'C';
+        }
+
         if($b->isDirty()) {
             $b->save();
         }
@@ -247,7 +263,21 @@ class VaccinationController extends Controller
     }
 
     public function bakuna_again($patient_id) {
+        $b = BakunaRecords::where('patient_id', $patient_id)->where('outcome', 'C')->orderBy('created_at', 'DESC')->first();
 
+        if($b) {
+            $vblist = VaccineBrand::where('enabled', 1)->orderBy('brand_name', 'ASC')->get();
+            $vslist = VaccinationSite::where('enabled', 1)->orderBy('id', 'ASC')->get();
+
+            return view('encode_new', [
+                'd' => $b->patient,
+                'vblist' => $vblist,
+                'vslist' => $vslist,
+            ]);
+        }
+        else {
+            return abort(401);
+        }
     }
 
     public function encode_process($br_id, $dose) {
@@ -260,6 +290,8 @@ class VaccinationController extends Controller
             else {
                 return abort(401);
             }
+
+            $msg = 'You have finished your 2nd Dose of your Anti-Rabies Vaccine.';
         }
         else if($dose == 3) {
             if($get_br->d7_date == date('Y-m-d') && $get_br->d0_done == 1 && $get_br->d3_done == 1 && $get_br->d7_done == 0) {
@@ -268,6 +300,8 @@ class VaccinationController extends Controller
             else {
                 return abort(401);
             }
+
+            $msg = 'You have finished your 3rd Dose of your Anti-Rabies Vaccine.';
         }
         else if($dose == 4) {
             if($get_br->d14_date == date('Y-m-d') && $get_br->d0_done == 1 && $get_br->d3_done == 1 && $get_br->d7_done == 1 && $get_br->d14_done == 0) {
@@ -277,6 +311,7 @@ class VaccinationController extends Controller
                 return abort(401);
             }
             
+            $msg = 'You have finished your 4th Dose of your Anti-Rabies Vaccine.';
         }
         else if($dose == 5) {
             if($get_br->d28_date == date('Y-m-d') && $get_br->d0_done == 1 && $get_br->d3_done == 1 && $get_br->d7_done == 1 && $get_br->d14_done == 1 && $get_br->d28_done == 0) {
@@ -289,6 +324,11 @@ class VaccinationController extends Controller
             if($get_br->category_level == 2) {
                 $get_br->outcome = 'C';
             }
+            else if($get_br->category_level == 3 && !is_null($get_br->rig_date_given)) {
+                $get_br->outcome = 'C';
+            }
+
+            $msg = 'Congratulations. You have completed your doses of Anti-Rabies Vaccine!';
         }
 
         $get_br->save();
@@ -296,7 +336,8 @@ class VaccinationController extends Controller
         return view('encode_finished', [
             'f' => $get_br,
         ])
-        ->with('msg', '');
+        ->with('msg', $msg)
+        ->with('dose' , $dose);
     }
 
     public function qr_quicksearch(Request $request) {
