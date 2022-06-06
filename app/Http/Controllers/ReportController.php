@@ -101,6 +101,7 @@ class ReportController extends Controller
                 ->count();
 
                 $hrig = BakunaRecords::where('outcome', 'C')
+                ->where('category_level', 3)
                 ->whereNotNull('rig_date_given')
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
