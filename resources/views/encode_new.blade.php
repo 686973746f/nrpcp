@@ -155,8 +155,8 @@
                             <label for="pep_route" class="form-label"><strong class="text-danger">*</strong>Route</label>
                             <select class="form-select" name="pep_route" id="pep_route" required>
                                 <option value="" disabled {{is_null(old('pep_route')) ? 'selected' : ''}}>Choose...</option>
+                                <option value="ID" {{(old('pep_route') == 'ID') ? 'selected' : ''}}>ID - Intradermal</option>
                                 <option value="IM" {{(old('pep_route') == 'IM') ? 'selected' : ''}}>IM - Intramuscular</option>
-                                <option value="ID" {{(old('pep_route') == 'ID') ? 'selected' : ''}}>ID</option>
                             </select>
                         </div>
                     </div>

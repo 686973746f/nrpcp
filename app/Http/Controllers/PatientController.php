@@ -55,10 +55,10 @@ class PatientController extends Controller
         }
         else {
             $create = $request->user()->patient()->create([
-                'lname' => $request->lname,
-                'fname' => $request->fname,
-                'mname' => ($request->filled('mname')) ? $request->mname : NULL,
-                'suffix' => ($request->filled('suffix')) ? $request->suffix : NULL,
+                'lname' => mb_strtoupper($request->lname),
+                'fname' => mb_strtoupper($request->fname),
+                'mname' => ($request->filled('mname')) ? mb_strtoupper($request->mname) : NULL,
+                'suffix' => ($request->filled('suffix')) ? mb_strtoupper($request->suffix) : NULL,
                 'bdate' => $request->bdate,
                 'gender' => $request->gender,
                 'contact_number' => $request->contact_number,
@@ -119,10 +119,10 @@ class PatientController extends Controller
             ->with('msgtype', 'warning');
         }
         else {
-            $p->lname = $request->lname;
-            $p->fname = $request->fname;
-            $p->mname = ($request->filled('mname')) ? $request->mname : NULL;
-            $p->suffix = ($request->filled('suffix')) ? $request->suffix : NULL;
+            $p->lname = mb_strtoupper($request->lname);
+            $p->fname = mb_strtoupper($request->fname);
+            $p->mname = ($request->filled('mname')) ? mb_strtoupper($request->mname) : NULL;
+            $p->suffix = ($request->filled('suffix')) ? mb_strtoupper($request->suffix) : NULL;
             $p->bdate = $request->bdate;
             $p->gender = $request->gender;
             $p->contact_number = $request->contact_number;

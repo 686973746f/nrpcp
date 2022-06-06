@@ -292,8 +292,8 @@ class VaccinationController extends Controller
     public function encode_process($br_id, $dose) {
         $get_br = BakunaRecords::findOrFail($br_id);
 
-        if($dose == 2) {
-            if($get_br->d3_date == date('Y-m-d') && $get_br->d0_done == 1 && $get_br->d3_done == 0) {
+        if($dose == 2) { //Day 3
+            if($get_br->ifAbleToProcessD3() == 'Y') {
                 $get_br->d3_done = 1;
             }
             else {
@@ -306,9 +306,23 @@ class VaccinationController extends Controller
             }
             else {
                 $msg = 'You have finished your 2nd Dose of your Anti-Rabies Vaccine.';
+
+                //Check if delay ang d3 bakuna then move next schedules
+                if($get_br->d3_date != date('Y-m-d')) {
+                    $ad = Carbon::parse($get_br->d3_date);
+                    $bd = Carbon::parse(date('Y-m-d'));
+
+                    $date_diff = $ad->diffInDays($bd);
+                    if($date_diff >= 3) {
+                        $get_br->d3_date = date('Y-m-d');
+                        $get_br->d7_date = Carbon::parse($get_br->d7_date)->addDays(4)->format('Y-m-d');
+                        $get_br->d14_date = Carbon::parse($get_br->d14_date)->addDays(4)->format('Y-m-d');
+                        $get_br->d28_date = Carbon::parse($get_br->d28_date)->addDays(4)->format('Y-m-d');
+                    }
+                }
             }
         }
-        else if($dose == 3) {
+        else if($dose == 3) { //Day 7
             if($get_br->d7_date == date('Y-m-d') && $get_br->d0_done == 1 && $get_br->d3_done == 1 && $get_br->d7_done == 0) {
                 $get_br->d7_done = 1;
             }
@@ -318,7 +332,7 @@ class VaccinationController extends Controller
 
             $msg = 'You have finished your 3rd Dose of your Anti-Rabies Vaccine.';
         }
-        else if($dose == 4) {
+        else if($dose == 4 && $get_br->pep_route == 'IM') { //Day 14
             if($get_br->d14_date == date('Y-m-d') && $get_br->d0_done == 1 && $get_br->d3_done == 1 && $get_br->d7_done == 1 && $get_br->d14_done == 0) {
                 $get_br->d14_done = 1;
             }
@@ -328,12 +342,22 @@ class VaccinationController extends Controller
             
             $msg = 'You have finished your 4th Dose of your Anti-Rabies Vaccine.';
         }
-        else if($dose == 5) {
-            if($get_br->d28_date == date('Y-m-d') && $get_br->d0_done == 1 && $get_br->d3_done == 1 && $get_br->d7_done == 1 && $get_br->d14_done == 1 && $get_br->d28_done == 0) {
-                $get_br->d28_done = 1;
+        else if($dose == 5) { //Day 28
+            if($get_br->pep_route == 'IM') {
+                if($get_br->d28_date == date('Y-m-d') && $get_br->d0_done == 1 && $get_br->d3_done == 1 && $get_br->d7_done == 1 && $get_br->d14_done == 1 && $get_br->d28_done == 0) {
+                    $get_br->d28_done = 1;
+                }
+                else {
+                    return abort(401);
+                }
             }
-            else {
-                return abort(401);
+            else if($get_br->pep_route == 'ID') { //Skip 14 Day
+                if($get_br->d28_date == date('Y-m-d') && $get_br->d0_done == 1 && $get_br->d3_done == 1 && $get_br->d7_done == 1 && $get_br->d28_done == 0) {
+                    $get_br->d28_done = 1;
+                }
+                else {
+                    return abort(401);
+                }
             }
 
             if($get_br->category_level == 2) {

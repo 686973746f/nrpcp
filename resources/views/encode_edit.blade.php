@@ -213,12 +213,15 @@
                                 @if($d->d3_done == 1)
                                 <strong class="text-success">DONE</strong>
                                 @else
-                                    @if(date('Y-m-d') == $d->d3_date)
+                                    @if($d->ifAbleToProcessD3() == 'Y')
                                     <a href="{{route('encode_process', ['br_id' => $d->id, 'dose' => 2])}}" class="btn btn-primary" onclick="return confirm('The patient should be present and injected with the 3rd Day Dose. Click OK to Continue.')">Mark as Done</a>
+                                    @elseif($d->ifAbleToProcessD3() == 'D')
+                                    <p class="text-danger"><b>DID NOT ARRIVED</b></p>
                                     @endif
                                 @endif
                             </td>
                         </tr>
+                        @if($d->is_booster == 0)
                         <tr>
                             <td>Day 7</td>
                             <td>{{date('m/d/Y (l)', strtotime($d->d7_date))}}</td>
@@ -226,12 +229,15 @@
                                 @if($d->d7_done == 1)
                                 <strong class="text-success">DONE</strong>
                                 @else
-                                    @if(date('Y-m-d') == $d->d7_date)
+                                    @if($d->ifAbleToProcessD7() == 'Y')
                                     <a href="{{route('encode_process', ['br_id' => $d->id, 'dose' => 3])}}" class="btn btn-primary" onclick="return confirm('The patient should be present and injected with the 7th Day Dose. Click OK to Continue.')">Mark as Done</a>
+                                    @elseif($d->ifAbleToProcessD7() == 'D')
+                                    <p class="text-danger"><b>DID NOT ARRIVED</b></p>
                                     @endif
                                 @endif
                             </td>
                         </tr>
+                        @if($d->pep_route != 'ID')
                         <tr>
                             <td>Day 14</td>
                             <td>{{date('m/d/Y (l)', strtotime($d->d14_date))}}</td>
@@ -239,12 +245,15 @@
                                 @if($d->d14_done == 1)
                                 <strong class="text-success">DONE</strong>
                                 @else
-                                    @if(date('Y-m-d') == $d->d14_date)
+                                    @if($d->ifAbleToProcessD14() == 'Y')
                                     <a href="{{route('encode_process', ['br_id' => $d->id, 'dose' => 4])}}" class="btn btn-primary" onclick="return confirm('The patient should be present and injected with the 14th Day Dose. Click OK to Continue.')">Mark as Done</a>
+                                    @elseif($d->ifAbleToProcessD14() == 'D')
+                                    <p class="text-danger"><b>DID NOT ARRIVED</b></p>
                                     @endif
                                 @endif
                             </td>
                         </tr>
+                        @endif
                         <tr>
                             <td>Day 28</td>
                             <td>{{date('m/d/Y (l)', strtotime($d->d28_date))}}</td>
@@ -252,12 +261,15 @@
                                 @if($d->d28_done == 1)
                                 <strong class="text-success">DONE</strong>
                                 @else
-                                    @if(date('Y-m-d') == $d->d28_date)
+                                    @if($d->ifAbleToProcessD28() == 'Y')
                                     <a href="{{route('encode_process', ['br_id' => $d->id, 'dose' => 5])}}" class="btn btn-primary" onclick="return confirm('The patient should be present and injected with the 28th Day Dose. Click OK to Continue.')">Mark as Done</a>
+                                    @elseif($d->ifAbleToProcessD28() == 'D')
+                                    <p class="text-danger"><b>DID NOT ARRIVED</b></p>
                                     @endif
                                 @endif
                             </td>
                         </tr>
+                        @endif
                     </tbody>
                 </table>
                 <div class="row">

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BakunaRecords extends Model
 {
@@ -58,6 +59,107 @@ class BakunaRecords extends Model
         }
         else {
             return true;
+        }
+    }
+
+    public function ifAbleToProcessD3() {
+        if($this->d0_done == 1 && $this->d3_done == 0) {
+            if(date('Y-m-d') == $this->d3_date) {
+                return 'Y';
+            }
+            else {
+                if(date('Y-m-d') >= Carbon::parse($this->d3_date)->addDays(3)->format('Y-m-d') && date('Y-m-d') <= Carbon::parse($this->d3_date)->addDays(3)->format('Y-m-d')) {
+                    return 'Y';
+                }
+                else {
+                    return 'D';
+                }
+            }
+        }
+        else {
+            return 'N';
+        }
+    }
+
+    public function ifAbleToProcessD7() {
+        if($this->d0_done == 1 && $this->d3_done == 1 && $this->d7_done == 0) {
+            if(date('Y-m-d') == $this->d7_date) {
+                return 'Y';
+            }
+            else {
+                if(date('Y-m-d') >= Carbon::parse($this->d7_date)->addDays(2)->format('Y-m-d') && date('Y-m-d') <= Carbon::parse($this->d7_date)->addDays(2)->format('Y-m-d')) {
+                    return 'Y';
+                }
+                else {
+                    return 'D';
+                }
+            }
+        }
+        else {
+            return 'N';
+        }
+    }
+
+    public function ifAbleToProcessD14() {
+        if($this->pep_route == 'ID') {
+            if($this->d0_done == 1 && $this->d3_done == 1 && $this->d7_done == 1 && $this->d14_done == 0) {
+                if(date('Y-m-d') == $this->d14_date) {
+                    return 'Y';
+                }
+                else {
+                    if(date('Y-m-d') >= Carbon::parse($this->d14_date)->addDays(2)->format('Y-m-d') && date('Y-m-d') <= Carbon::parse($this->d14_date)->addDays(2)->format('Y-m-d')) {
+                        return 'Y';
+                    }
+                    else {
+                        return 'D';
+                    }
+                }
+            }
+            else {
+                return 'N';
+            }
+        }
+        else {
+            return 'N';
+        }
+    }
+
+    public function ifAbleToProcessD28() {
+        if($this->pep_route == 'ID') {
+            if($this->d0_done == 1 && $this->d3_done == 1 && $this->d7_done == 1 && $this->d14_done == 1 && $this->d28_done == 0) {
+                if(date('Y-m-d') == $this->d28_date) {
+                    return 'Y';
+                }
+                else {
+                    if(date('Y-m-d') >= Carbon::parse($this->d28_date)->addDays(2)->format('Y-m-d') && date('Y-m-d') <= Carbon::parse($this->d28_date)->addDays(2)->format('Y-m-d')) {
+                        return 'Y';
+                    }
+                    else {
+                        return 'D';
+                    }
+                }
+            }
+            else {
+                return 'N';
+            }
+        }
+        else {
+            if($this->d0_done == 1 && $this->d3_done == 1 && $this->d7_done == 1 && $this->d28_done == 0) {
+                if(date('Y-m-d') == $this->d28_date) {
+                    return 'Y';
+                }
+                else {
+                    if(date('Y-m-d') >= Carbon::parse($this->d28_date)->addDays(2)->format('Y-m-d') && date('Y-m-d') <= Carbon::parse($this->d28_date)->addDays(2)->format('Y-m-d')) {
+                        return 'Y';
+                    }
+                    else {
+                        return 'D';
+                    }
+                }
+            }
+            else {
+                return 'N';
+            }
         }
     }
 }

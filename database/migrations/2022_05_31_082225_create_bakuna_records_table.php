@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('bakuna_records', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('patient_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('patient_id')->constrained('patients')->onDelete('cascade');
             $table->foreignId('vaccination_site_id')->constrained('vaccination_sites')->onDelete('cascade');
             $table->text('case_id');
             $table->tinyInteger('is_booster')->default(0);

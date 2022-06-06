@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use App\Models\VaccinationSite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -23,7 +24,7 @@ use App\Http\Controllers\UserSettingsController;
 
 Auth::routes(['verify' => true]);
 
-Route::group(['middleware' => ['IsStaff']], function () {
+Route::group(['middleware' => ['auth', 'verified', 'IsStaff']], function () {
     Route::get('/patient', [PatientController::class, 'index'])->name('patient_index');
     Route::get('/patient/create', [PatientController::class, 'create'])->name('patient_create');
     Route::post('/patient/create', [PatientController::class, 'store'])->name('patient_store');
@@ -59,12 +60,14 @@ Route::group(['middleware' => ['IsStaff']], function () {
     Route::post('/settings/save', [UserSettingsController::class, 'save_settings'])->name('save_settings');
 });
 
-Route::get('/home', function() {
-    $vslist = VaccinationSite::where('enabled', 1)->orderBy('id', 'ASC')->get();
-    return view('home', [
-        'vslist' => $vslist,
-    ]);
-})->name('home');
+Route::group(['middleware' => ['auth', 'verified', 'IsStaff']], function () {
+    Route::get('/home', function() {
+        $vslist = VaccinationSite::where('enabled', 1)->orderBy('id', 'ASC')->get();
+        return view('home', [
+            'vslist' => $vslist,
+        ]);
+    })->name('home');
+});
 
 Route::get('/', function () {
     if(auth()->check()) {
