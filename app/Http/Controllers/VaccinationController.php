@@ -268,12 +268,21 @@ class VaccinationController extends Controller
         if($b) {
             $vblist = VaccineBrand::where('enabled', 1)->orderBy('brand_name', 'ASC')->get();
             $vslist = VaccinationSite::where('enabled', 1)->orderBy('id', 'ASC')->get();
-
-            return view('encode_new', [
-                'd' => $b->patient,
-                'vblist' => $vblist,
-                'vslist' => $vslist,
-            ]);
+            
+            //Check duration 3 months
+            $bcheck = BakunaRecords::whereDate('case_date', '=>', date('Y-m-d', strtotime('-3 Months')))->first();
+            if($bcheck) {
+                return redirect()->back()
+                ->with('msg', 'Unable to process. Patient was vaccinated 90 Days (3 Months) ago. Booster is not required')
+                ->with('msgtype', 'warning');
+            }
+            else {
+                return view('encode_new', [
+                    'd' => $b->patient,
+                    'vblist' => $vblist,
+                    'vslist' => $vslist,
+                ]);
+            }
         }
         else {
             return abort(401);
@@ -291,7 +300,13 @@ class VaccinationController extends Controller
                 return abort(401);
             }
 
-            $msg = 'You have finished your 2nd Dose of your Anti-Rabies Vaccine.';
+            if($get_br->is_booster == 1) {
+                $get_br->outcome = 'C';
+                $msg = 'You have finished your Booster Dose of your Anti-Rabies Vaccine.';
+            }
+            else {
+                $msg = 'You have finished your 2nd Dose of your Anti-Rabies Vaccine.';
+            }
         }
         else if($dose == 3) {
             if($get_br->d7_date == date('Y-m-d') && $get_br->d0_done == 1 && $get_br->d3_done == 1 && $get_br->d7_done == 0) {

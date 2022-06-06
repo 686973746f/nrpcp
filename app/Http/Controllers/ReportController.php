@@ -95,7 +95,13 @@ class ReportController extends Controller
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $booster_count = BakunaRecords::where('is_booster', 1)
+                $tcv_count = BakunaRecords::where('outcome', 'C')
+                ->where('vaccination_site_id', $v->id)
+                ->whereBetween('case_date', [$sd, $ed])
+                ->count();
+
+                $hrig = BakunaRecords::where('outcome', 'C')
+                ->whereNotNull('rig_date_given')
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
@@ -112,11 +118,16 @@ class ReportController extends Controller
                 $sheet->setCellValue('J'.$i, $cat2_count);
                 $sheet->setCellValue('K'.$i, $cat3_count);
 
+                $sheet->setCellValue('S'.$i, $tcv_count);
+                $sheet->setCellValue('T'.$i, $hrig);
+                $sheet->setCellValue('T'.$i, 0); //ERIG
+
                 $sheet->setCellValue('V'.$i, $dog_count);
                 $sheet->setCellValue('W'.$i, $cat_count);
                 $sheet->setCellValue('X'.$i, $others_count);
 
                 $sheet->setCellValue('Z'.$i, $booster_count);
+                $sheet->setCellValue('AA'.$i, 0); //Pre-exposure Count
             }
 
             $i = $i+1;
