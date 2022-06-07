@@ -10,6 +10,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\VaccinationController;
 use App\Http\Controllers\UserSettingsController;
+use App\Http\Controllers\WalkInRegistrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,9 @@ Route::group(['middleware' => ['auth', 'verified', 'IsStaff']], function () {
     Route::get('/encode/edit/{br_id}', [VaccinationController::class, 'encode_edit'])->name('encode_edit');
     Route::post('/encode/edit/{br_id}', [VaccinationController::class, 'encode_update'])->name('encode_update');
 
+    Route::get('/encode/edit/{br_id}/override_schedule', [VaccinationController::class, 'override_schedule'])->name('override_schedule');
+    Route::post('/encode/edit/{br_id}/override_schedule', [VaccinationController::class, 'override_schedule_process'])->name('override_schedule_process');
+
     Route::get('/encode/process_vaccination/{br_id}/{dose}', [VaccinationController::class, 'encode_process'])->name('encode_process');
 
     Route::get('/encode/rebakuna/{patient_id}', [VaccinationController::class, 'bakuna_again'])->name('bakuna_again');
@@ -58,6 +62,12 @@ Route::group(['middleware' => ['auth', 'verified', 'IsStaff']], function () {
     Route::post('/report/export1', [ReportController::class, 'export1'])->name('report_export1');
 
     Route::post('/settings/save', [UserSettingsController::class, 'save_settings'])->name('save_settings');
+});
+
+Route::group(['middleware' => ['guest']], function() {
+    Route::get('/walkin', [WalkInRegistrationController::class, 'walkin_part1'])->name('walkin_part1');
+    Route::get('/wakin/register', [WalkInRegistrationController::class, 'walkin_part2'])->name('walkin_part2');
+    Route::post('/wakin/register', [WalkInRegistrationController::class, 'walkin_part3'])->name('walkin_part3');
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'IsStaff']], function () {

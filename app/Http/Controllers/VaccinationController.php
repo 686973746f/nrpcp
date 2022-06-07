@@ -292,7 +292,10 @@ class VaccinationController extends Controller
     public function encode_process($br_id, $dose) {
         $get_br = BakunaRecords::findOrFail($br_id);
 
-        if($dose == 2) { //Day 3
+        if($dose == 1) {
+            
+        }
+        else if($dose == 2) { //Day 3
             if($get_br->ifAbleToProcessD3() == 'Y') {
                 $get_br->d3_done = 1;
             }
@@ -402,5 +405,53 @@ class VaccinationController extends Controller
             ->with('msg', 'User does not exist on the server.')
             ->with('msgtype', 'warning');
         }
+    }
+
+    public function override_schedule($id) {
+        $d = BakunaRecords::findOrFail($id);
+
+        return view('encode_schedule_override', [
+            'd' => $d,
+        ]);
+    }
+
+    public function override_schedule_process($id, Request $request) {
+        $d = BakunaRecords::findOrFail($id);
+
+        $request->validate([
+            
+        ]);
+
+        if($d->d0_done == 0) {
+            $d->d0_date = $request->d0_date;
+        }
+
+        if($d->d3_done == 0) {
+            $d->d3_date = $request->d3_date;
+        }
+
+        if($d->is_booster == 0) {
+            if($d->d7_done == 0) {
+                $d->d7_date = $request->d7_date;
+            }
+    
+            if($d->pep_route == 'IM') {
+                if($d->d14_done == 0) {
+                    $d->d14_date = $request->d14_date;
+                }
+            }
+    
+            if($d->d28_done == 0) {
+                $d->d28_date = $request->d28_date;
+            }
+        }
+
+        if($d->isDirty()) {
+            $d->save();
+        }
+
+        return redirect()->route('encode_edit', ['br_id' => $d->id])
+        ->with('msg', 'Schedule has been manually changed.')
+        ->with('msgtype', 'success');
     }
 }

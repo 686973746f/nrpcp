@@ -194,6 +194,9 @@
                 </div>
                 <table class="table table-bordered table-striped text-center">
                     <thead class="bg-light">
+                        <tr class="text-end">
+                            <th colspan="3"><a class="btn btn-primary" href="{{route('override_schedule', ['br_id' => $d->id])}}" role="button"><i class="fa-solid fa-clock-rotate-left me-2"></i>Manually Change Schedule</a></th>
+                        </tr>
                         <tr>
                             <th>Schedule</th>
                             <th>Date</th>

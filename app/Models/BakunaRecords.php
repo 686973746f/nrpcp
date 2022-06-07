@@ -68,11 +68,16 @@ class BakunaRecords extends Model
                 return 'Y';
             }
             else {
-                if(date('Y-m-d') >= Carbon::parse($this->d3_date)->addDays(3)->format('Y-m-d') && date('Y-m-d') <= Carbon::parse($this->d3_date)->addDays(3)->format('Y-m-d')) {
-                    return 'Y';
+                if(date('Y-m-d') >= Carbon::parse($this->d3_date)->addDays(3)->format('Y-m-d')) {
+                    if(date('Y-m-d') <= Carbon::parse($this->d3_date)->addDays(3)->format('Y-m-d')) {
+                        return 'Y';
+                    }
+                    else {
+                        return 'D';
+                    }
                 }
                 else {
-                    return 'D';
+                    return 'N';
                 }
             }
         }
@@ -87,11 +92,16 @@ class BakunaRecords extends Model
                 return 'Y';
             }
             else {
-                if(date('Y-m-d') >= Carbon::parse($this->d7_date)->addDays(2)->format('Y-m-d') && date('Y-m-d') <= Carbon::parse($this->d7_date)->addDays(2)->format('Y-m-d')) {
-                    return 'Y';
+                if(date('Y-m-d') >= Carbon::parse($this->d7_date)->addDays(2)->format('Y-m-d')) {
+                    if(date('Y-m-d') <= Carbon::parse($this->d7_date)->addDays(2)->format('Y-m-d')) {
+                        return 'Y';
+                    }
+                    else {
+                        return 'D';
+                    }
                 }
                 else {
-                    return 'D';
+                    return 'N';
                 }
             }
         }
@@ -107,11 +117,16 @@ class BakunaRecords extends Model
                     return 'Y';
                 }
                 else {
-                    if(date('Y-m-d') >= Carbon::parse($this->d14_date)->addDays(2)->format('Y-m-d') && date('Y-m-d') <= Carbon::parse($this->d14_date)->addDays(2)->format('Y-m-d')) {
-                        return 'Y';
+                    if(date('Y-m-d') >= Carbon::parse($this->d14_date)->addDays(2)->format('Y-m-d')) {
+                        if(date('Y-m-d') <= Carbon::parse($this->d14_date)->addDays(2)->format('Y-m-d')) {
+                            return 'Y';
+                        }
+                        else {
+                            return 'D';
+                        }
                     }
                     else {
-                        return 'D';
+                        return 'N';
                     }
                 }
             }
@@ -131,8 +146,13 @@ class BakunaRecords extends Model
                     return 'Y';
                 }
                 else {
-                    if(date('Y-m-d') >= Carbon::parse($this->d28_date)->addDays(2)->format('Y-m-d') && date('Y-m-d') <= Carbon::parse($this->d28_date)->addDays(2)->format('Y-m-d')) {
-                        return 'Y';
+                    if(date('Y-m-d') >= Carbon::parse($this->d28_date)->addDays(2)->format('Y-m-d')) {
+                        if(date('Y-m-d') <= Carbon::parse($this->d28_date)->addDays(2)->format('Y-m-d')) {
+                            return 'D';
+                        }
+                        else {
+                            return 'N';
+                        }
                     }
                     else {
                         return 'D';
@@ -149,11 +169,16 @@ class BakunaRecords extends Model
                     return 'Y';
                 }
                 else {
-                    if(date('Y-m-d') >= Carbon::parse($this->d28_date)->addDays(2)->format('Y-m-d') && date('Y-m-d') <= Carbon::parse($this->d28_date)->addDays(2)->format('Y-m-d')) {
-                        return 'Y';
+                    if(date('Y-m-d') >= Carbon::parse($this->d28_date)->addDays(2)->format('Y-m-d')) {
+                        if(date('Y-m-d') <= Carbon::parse($this->d28_date)->addDays(2)->format('Y-m-d')) {
+                            return 'Y';
+                        }
+                        else {
+                            return 'D';
+                        }
                     }
                     else {
-                        return 'D';
+                        return 'N';
                     }
                 }
             }

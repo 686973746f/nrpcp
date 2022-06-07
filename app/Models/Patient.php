@@ -14,6 +14,8 @@ class Patient extends Model
     use HasFactory;
 
     protected $fillable = [
+        'register_status',
+        'enabled',
         'lname',
         'fname',
         'mname',
@@ -36,6 +38,7 @@ class Patient extends Model
 
         'created_by',
         'updated_by',
+        'ip',
     ];
 
     public function user() {

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
+            $table->string('register_status')->default('VERIFIED');
             $table->tinyInteger('enabled')->default(1);
             $table->string('lname');
             $table->string('fname');
@@ -38,8 +39,9 @@ return new class extends Migration
             $table->text('remarks')->nullable();
             $table->text('qr');
             $table->timestamps();
-            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('cascade');
+            $table->ipAddress('ip');
         });
     }
 
