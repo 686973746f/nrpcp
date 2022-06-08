@@ -34,13 +34,13 @@
                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="mname" class="form-label">Middle Name <i><small>(If Applicable)</small></i></label>
-                                    <input type="text" class="form-control" name="mname" id="mname" value="{{old('mname', request()->input('mname'))}}" placeholder="SANCHEZ" maxlength="50" readonly>
+                                    <input type="text" class="form-control" name="mname" id="mname" value="{{old('mname', request()->input('mname'))}}" maxlength="50" readonly>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="suffix" class="form-label">Suffix <i><small>(If Applicable)</small></i></label>
-                                    <input type="text" class="form-control" name="suffix" id="suffix" value="{{old('suffix', request()->input('suffix'))}}" maxlength="3" placeholder="e.g JR, SR, III, IV" readonly>
+                                    <input type="text" class="form-control" name="suffix" id="suffix" value="{{old('suffix', request()->input('suffix'))}}" maxlength="3" readonly>
                                 </div>
                             </div>
                         </div>
@@ -55,9 +55,9 @@
                                 <div class="mb-3">
                                     <label for="gender" class="form-label"><span class="text-danger font-weight-bold">*</span>Gender</label>
                                     <select class="form-select" name="gender" id="gender" required>
-                                        <option value="" disabled {{(is_null(old('gender'))) ? 'selected' : ''}}>Choose...</option>
-                                        <option value="MALE" {{(old('gender') == 'MALE') ? 'selected' : ''}}>Male</option>
-                                        <option value="FEMALE" {{(old('gender') == 'FEMALE') ? 'selected' : ''}}>Female</option>
+                                        <option value="" disabled {{(is_null(old('gender'))) ? 'selected' : ''}}>Pumili...</option>
+                                        <option value="MALE" {{(old('gender') == 'MALE') ? 'selected' : ''}}>Lalaki/Male</option>
+                                        <option value="FEMALE" {{(old('gender') == 'FEMALE') ? 'selected' : ''}}>Babae/Female</option>
                                     </select>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card mb-3">
                     <div class="card-header">Address</div>
                     <div class="card-body">
                         <div id="address_text" class="d-none">
@@ -134,10 +134,64 @@
                         </div>
                     </div>
                 </div>
-                
+                <div class="card">
+                    <div class="card-header">Case Information</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="animal_type" class="form-label"><strong class="text-danger">*</strong>Uri ng Hayop na Kumagat</label>
+                                    <select class="form-select" name="animal_type" id="animal_type" required>
+                                        <option value="" disabled {{is_null(old('animal_type')) ? 'selected' : ''}}>Pumili...</option>
+                                        <option value="PD" {{(old('animal_type') == 'PD') ? 'selected' : ''}}>Alagang Aso/Pet Dog (PD)</option>
+                                        <option value="SD" {{(old('animal_type') == 'SD') ? 'selected' : ''}}>Galang Aso/Stray Dog (SD)</option>
+                                        <option value="C" {{(old('animal_type') == 'C') ? 'selected' : ''}}>Pusa/Cat</option>
+                                        <option value="O" {{(old('animal_type') == 'O') ? 'selected' : ''}}>Iba pa/Others</option>
+                                    </select>
+                                </div>
+                                <div id="ifanimaltype_othersdiv" class="d-none">
+                                    <div class="mb-3">
+                                        <label for="animal_type_others" class="form-label"><strong class="text-danger">*</strong>Pakitukoy kung anong uri ng hayop</label>
+                                        <input type="text" class="form-control" name="animal_type_others" id="animal_type_others" value="{{old('animal_type_others')}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="bite_date" class="form-label"><strong class="text-danger">*</strong>Kailan nakagat?</label>
+                                    <input type="date" class="form-control" name="bite_date" id="bite_date" min="2000-01-01" max="{{date('Y-m-d')}}" value="{{old('bite_date')}}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="case_location" class="form-label"><strong id="case_location_ast" class="text-danger">*</strong>Saang lugar nangyari ang pangangagat?</label>
+                                    <input type="text" class="form-control" name="case_location" id="case_location" value="{{old('case_location')}}" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="body_site" class="form-label"><strong id="body_site_ast" class="text-danger">*</strong>Parte ng katawan na nasugatan/nakagat</label>
+                                    <input type="text" class="form-control" name="body_site" id="body_site" value="{{old('body_site')}}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="washing_of_bite" class="form-label"><strong class="text-danger">*</strong>Nahugasan na ang sugat?</label>
+                                    <select class="form-select" name="washing_of_bite" id="washing_of_bite" required>
+                                        <option value="" disabled {{is_null(old('washing_of_bite')) ? 'selected' : ''}}>Pumili...</option>
+                                        <option value="Y" {{(old('washing_of_bite') == 'Y') ? 'selected' : ''}}>Oo / Yes</option>
+                                        <option value="N" {{(old('washing_of_bite') == 'N') ? 'selected' : ''}}>Hindi / No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="card-footer text-end">
-                <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk me-2"></i>Save</button>
+                <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk me-2"></i>Finish</button>
             </div>
         </div>
     </div>
