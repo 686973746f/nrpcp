@@ -144,8 +144,8 @@
                             <select class="form-select" name="category_level" id="category_level" required>
                                 <option value="" disabled {{is_null(old('category_level', $d->category_level)) ? 'selected' : ''}}>Choose...</option>
                                 <option value="1" {{(old('category_level', $d->category_level) == 1) ? 'selected' : ''}}>Category 1</option>
-                                <option value="2" {{(old('category_level', $d->category_level) == 2) ? 'selected' : ''}}>Category 2</option>
-                                <option value="3" {{(old('category_level', $d->category_level) == 3) ? 'selected' : ''}}>Category 3</option>
+                                <option value="2" {{(old('category_level', $d->category_level) == 2) ? 'selected' : ''}}>Category 2 (Scratches)</option>
+                                <option value="3" {{(old('category_level', $d->category_level) == 3) ? 'selected' : ''}}>Category 3 (Bleeding)</option>
                             </select>
                         </div>
                     </div>
