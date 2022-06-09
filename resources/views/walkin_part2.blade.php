@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-<form action="" method="POST">
+<form action="{{route('walkin_part3')}}" method="POST">
     @csrf
     <div class="container">
         <div class="card">
-            <div class="card-header">Registration</div>
+            <div class="card-header">Anti-Rabies Vaccination - Walk in Registration ({{session('vaccination_site_name')}})</div>
             <div class="card-body">
+                <div class="alert alert-info" role="alert">
+                    <b>Note:</b> All Fields marked with an asterisk (<strong class="text-danger">*</strong>) are required fields.
+                </div>
                 @if(session('msg'))
                 <div class="alert alert-{{session('msgtype')}}" role="alert">
                     {{session('msg')}}
                 </div>
                 @endif
-                <div class="alert alert-info" role="alert">
-                    Note: All Fields marked with an asterisk (<strong class="text-danger">*</strong>) are required fields.
-                </div>
                 <div class="card mb-3">
                     <div class="card-header">Personal information</div>
                     <div class="card-body">
@@ -170,19 +170,29 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="body_site" class="form-label"><strong id="body_site_ast" class="text-danger">*</strong>Parte ng katawan na nasugatan/nakagat</label>
                                     <input type="text" class="form-control" name="body_site" id="body_site" value="{{old('body_site')}}" required>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="washing_of_bite" class="form-label"><strong class="text-danger">*</strong>Nahugasan na ang sugat?</label>
                                     <select class="form-select" name="washing_of_bite" id="washing_of_bite" required>
                                         <option value="" disabled {{is_null(old('washing_of_bite')) ? 'selected' : ''}}>Pumili...</option>
                                         <option value="Y" {{(old('washing_of_bite') == 'Y') ? 'selected' : ''}}>Oo / Yes</option>
                                         <option value="N" {{(old('washing_of_bite') == 'N') ? 'selected' : ''}}>Hindi / No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="ifbleeding" class="form-label"><strong class="text-danger">*</strong>Dumugo ba ang kagat o kalmot?</label>
+                                    <select class="form-select" name="ifbleeding" id="ifbleeding" required>
+                                        <option value="" disabled {{is_null(old('ifbleeding')) ? 'selected' : ''}}>Pumili...</option>
+                                        <option value="Y" {{(old('ifbleeding') == 'Y') ? 'selected' : ''}}>Oo, dumugo</option>
+                                        <option value="N" {{(old('ifbleeding') == 'N') ? 'selected' : ''}}>Hindi, gasgas/galos lang</option>
                                     </select>
                                 </div>
                             </div>

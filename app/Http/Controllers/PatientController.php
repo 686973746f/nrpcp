@@ -37,23 +37,23 @@ class PatientController extends Controller
         $request->validate([
 
         ]);
-
-        $foundunique = false;
-
-        while(!$foundunique) {
-            $for_qr = Str::random(20);
-            
-            $search = Patient::where('qr', $for_qr)->first();
-            if(!$search) {
-                $foundunique = true;
-            }
-        }
-
+        
         if(Patient::ifDuplicateFound($request->lname, $request->fname, $request->mname, $request->suffix, $request->bdate)) {
             return back()->with('msg', 'Unable to register new patient. Patient details already exists on the server.')
             ->with('msgtype', 'danger');
         }
         else {
+            $foundunique = false;
+
+            while(!$foundunique) {
+                $for_qr = Str::random(20);
+                
+                $search = Patient::where('qr', $for_qr)->first();
+                if(!$search) {
+                    $foundunique = true;
+                }
+            }
+
             $create = $request->user()->patient()->create([
                 'lname' => mb_strtoupper($request->lname),
                 'fname' => mb_strtoupper($request->fname),
@@ -75,6 +75,7 @@ class PatientController extends Controller
     
                 'qr' => $for_qr,
                 'remarks' => ($request->filled('remarks')) ? $request->remarks : NULL,
+                'ip' => request()->ip(),
             ]);
     
             return redirect()->route('patient_index')

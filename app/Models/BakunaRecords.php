@@ -62,6 +62,25 @@ class BakunaRecords extends Model
         }
     }
 
+    public function ifAbleToProcessD0() {
+        if($this->d0_done == 0) {
+            if(date('Y-m-d') == $this->d0_date) {
+                return 'Y';
+            }
+            else {
+                if(date('Y-m-d') < $this->d0_date) {
+                    return 'N';
+                }
+                else {
+                    return 'D';
+                }
+            }
+        }
+        else {
+            return 'N';
+        }
+    }
+
     public function ifAbleToProcessD3() {
         if($this->d0_done == 1 && $this->d3_done == 0) {
             if(date('Y-m-d') == $this->d3_date) {

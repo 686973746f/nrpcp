@@ -30,7 +30,7 @@ return new class extends Migration
             $table->tinyInteger('washing_of_bite');
             $table->date('rig_date_given')->nullable();
             $table->string('pep_route');
-            $table->text('brand_name');
+            $table->text('brand_name')->nullable();
             $table->date('d0_date');
             $table->tinyInteger('d0_done')->default(0);
             $table->date('d3_date');
@@ -46,7 +46,7 @@ return new class extends Migration
             $table->text('remarks')->nullable();
 
             $table->timestamps();
-            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('cascade');
         });
     }

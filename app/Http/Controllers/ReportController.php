@@ -38,69 +38,97 @@ class ReportController extends Controller
                 $i = $i + 11; //Row 11 Start ng pag-fill ng Values
 
                 $male_count = BakunaRecords::whereHas('patient', function($q) {
-                    $q->where('gender', 'MALE');
+                    $q->where('gender', 'MALE')
+                    ->where('register_status', 'VERIFIED');
                 })
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
                 $female_count = BakunaRecords::whereHas('patient', function($q) {
-                    $q->where('gender', 'FEMALE');
+                    $q->where('gender', 'FEMALE')
+                    ->where('register_status', 'VERIFIED');
                 })
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
                 $less15 = BakunaRecords::whereHas('patient', function($q) {
-                    $q->whereRaw('TIMESTAMPDIFF(YEAR, bdate, CURDATE()) < 15');
+                    $q->whereRaw('TIMESTAMPDIFF(YEAR, bdate, CURDATE()) < 15')
+                    ->where('register_status', 'VERIFIED');
                 })
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
                 $great15 = BakunaRecords::whereHas('patient', function($q) {
-                    $q->whereRaw('TIMESTAMPDIFF(YEAR, bdate, CURDATE()) >= 15');
+                    $q->whereRaw('TIMESTAMPDIFF(YEAR, bdate, CURDATE()) >= 15')
+                    ->where('register_status', 'VERIFIED');
                 })
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $cat1_count = BakunaRecords::where('category_level', 1)
+                $cat1_count = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('category_level', 1)
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $cat2_count = BakunaRecords::where('category_level', 2)
+                $cat2_count = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('category_level', 2)
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $cat3_count = BakunaRecords::where('category_level', 3)
+                $cat3_count = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('category_level', 3)
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $dog_count = BakunaRecords::whereIn('animal_type', ['PD', 'SD'])
+                $dog_count = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->whereIn('animal_type', ['PD', 'SD'])
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $cat_count = BakunaRecords::where('animal_type', 'C')
+                $cat_count = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('animal_type', 'C')
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $others_count = BakunaRecords::where('animal_type', 'O')
+                $others_count = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('animal_type', 'O')
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $tcv_count = BakunaRecords::where('outcome', 'C')
+                $tcv_count = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('outcome', 'C')
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $hrig = BakunaRecords::where('outcome', 'C')
+                $hrig = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('outcome', 'C')
                 ->where('category_level', 3)
                 ->whereNotNull('rig_date_given')
                 ->where('vaccination_site_id', $v->id)
@@ -151,71 +179,107 @@ class ReportController extends Controller
             foreach($vslist as $i => $v) {
                 $i = $i + 6; //Row 6 Start ng pag-fill ng Values
 
-                $cat2_total = BakunaRecords::where('category_level', 2)
+                $cat2_total = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('category_level', 2)
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $cat2_rig = BakunaRecords::where('category_level', 2)
+                $cat2_rig = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('category_level', 2)
                 ->whereNotNull('rig_date_given')
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $cat2_complete = BakunaRecords::where('category_level', 2)
+                $cat2_complete = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('category_level', 2)
                 ->where('outcome', 'C')
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $cat2_incomplete = BakunaRecords::where('category_level', 2)
+                $cat2_incomplete = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('category_level', 2)
                 ->where('outcome', 'INC')
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
                 
-                $cat2_none = BakunaRecords::where('category_level', 2)
+                $cat2_none = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('category_level', 2)
                 ->where('outcome', 'N')
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $cat2_died = BakunaRecords::where('category_level', 2)
+                $cat2_died = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('category_level', 2)
                 ->where('outcome', 'D')
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $cat3_total = BakunaRecords::where('category_level', 3)
+                $cat3_total = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('category_level', 3)
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $cat3_rig = BakunaRecords::where('category_level', 3)
+                $cat3_rig = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('category_level', 3)
                 ->whereNotNull('rig_date_given')
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $cat3_complete = BakunaRecords::where('category_level', 3)
+                $cat3_complete = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('category_level', 3)
                 ->where('outcome', 'C')
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $cat3_incomplete = BakunaRecords::where('category_level', 3)
+                $cat3_incomplete = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('category_level', 3)
                 ->where('outcome', 'INC')
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
                 
-                $cat3_none = BakunaRecords::where('category_level', 3)
+                $cat3_none = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('category_level', 3)
                 ->where('outcome', 'N')
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $cat3_died = BakunaRecords::where('category_level', 3)
+                $cat3_died = BakunaRecords::whereHas('patient', function($q) {
+                    $q->where('register_status', 'VERIFIED');
+                })
+                ->where('category_level', 3)
                 ->where('outcome', 'D')
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])

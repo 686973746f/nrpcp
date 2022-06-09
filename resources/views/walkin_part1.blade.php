@@ -6,23 +6,28 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header"><b>Anti-Rabies Vaccination - Walk in Registration</b></div>
+                    <div class="card-header"><b>Anti-Rabies Vaccination - Walk in Registration ({{session('vaccination_site_name')}})</b></div>
                     <div class="card-body">
                         <div class="alert alert-info" role="alert">
                             <b>Note:</b> All fields marked with an asterisk (<strong class="text-danger">*</strong>) are required fields.
                         </div>
+                        @if(session('msg'))
+                        <div class="alert alert-{{session('msgtype')}} text-center" role="alert">
+                            {{session('msg')}}
+                        </div>
+                        @endif
                         <div class="mb-3">
-                            <label for="fname" class="form-label"><b class="text-danger">*</b>First Name (and Suffix)</label>
+                            <label for="fname" class="form-label"><b class="text-danger">*</b>Unang Pangalan/First Name</label>
                             <input type="text" class="form-control" name="fname" id="fname" value="{{old('fname')}}" minlength="2" maxlength="50" style="text-transform: uppercase;" placeholder="JUAN JR" required>
                         </div>
                         <div class="mb-3">
-                            <label for="mname" class="form-label">Middle Name <small>(If Applicable)</small></label>
+                            <label for="mname" class="form-label">Gitnang Pangalan/Middle Name <small>(If Applicable)</small></label>
                             <input type="text" class="form-control" name="mname" id="mname" value="{{old('mname')}}" minlength="2" maxlength="50" style="text-transform: uppercase;" placeholder="SANCHEZ">
                         </div>
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="mb-3">
-                                    <label for="lname" class="form-label"><b class="text-danger">*</b>Last Name</label>
+                                    <label for="lname" class="form-label"><b class="text-danger">*</b>Apelyido/Surname</label>
                                     <input type="text" class="form-control" name="lname" id="lname" value="{{old('lname')}}" minlength="2" maxlength="50" style="text-transform: uppercase;" placeholder="DELA CRUZ" required>
                                 </div>
                             </div>

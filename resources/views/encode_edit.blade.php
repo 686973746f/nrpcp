@@ -175,8 +175,8 @@
                             <label for="pep_route" class="form-label"><strong class="text-danger">*</strong>Route</label>
                             <select class="form-select" name="pep_route" id="pep_route" required>
                                 <option value="" disabled {{is_null(old('pep_route', $d->pep_route)) ? 'selected' : ''}}>Choose...</option>
+                                <option value="ID" {{(old('pep_route', $d->pep_route) == 'ID') ? 'selected' : ''}}>ID - Intradermal</option>
                                 <option value="IM" {{(old('pep_route', $d->pep_route) == 'IM') ? 'selected' : ''}}>IM - Intramuscular</option>
-                                <option value="ID" {{(old('pep_route', $d->pep_route) == 'ID') ? 'selected' : ''}}>ID</option>
                             </select>
                         </div>
                     </div>
@@ -207,7 +207,17 @@
                         <tr>
                             <td>Day 0</td>
                             <td>{{date('m/d/Y (l)', strtotime($d->d0_date))}}</td>
-                            <td>@if($d->d0_done == 1) <strong class="text-success">DONE</strong> @else <strong class="text-warning">PENDING</strong> @endif</td>
+                            <td>
+                                @if($d->d0_done == 1)
+                                <strong class="text-success">DONE</strong>
+                                @else
+                                    @if($d->ifAbleToProcessD0() == 'Y')
+                                    <a href="{{route('encode_process', ['br_id' => $d->id, 'dose' => 1])}}" class="btn btn-primary" onclick="return confirm('The patient should be present and injected with the 0 Day Dose. Click OK to Continue.')">Mark as Done</a>
+                                    @elseif($d->ifAbleToProcessD0() == 'D')
+                                    <p class="text-danger"><b>DID NOT ARRIVED</b></p>
+                                    @endif
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <td>Day 3</td>

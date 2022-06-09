@@ -52,7 +52,7 @@
                             <td class="text-center">{{$d->getAge()}} / {{$d->sg()}}</td>
                             <td class="text-center">{{$d->contact_number}}</td>
                             <td><small>{{$d->getAddress()}}</small></td>
-                            <td class="text-center">{{date('m/d/Y h:i A', strtotime($d->created_at))}} / {{$d->user->name}}</td>
+                            <td class="text-center">{{date('m/d/Y h:i A', strtotime($d->created_at))}} @if($d->created_by) / {{$d->user->name}}@endif</td>
                         </tr>
                         @endforeach
                     </tbody>
