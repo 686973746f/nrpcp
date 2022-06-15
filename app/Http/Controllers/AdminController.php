@@ -46,11 +46,19 @@ class AdminController extends Controller
 
         VaccineBrand::create([
             'brand_name' => mb_strtoupper($request->brand_name),
-            'generic_name' => mb_strtoupper($request->type),
+            'generic_name' => mb_strtoupper($request->generic_name),
         ]);
 
         return redirect()->route('vaccinebrand_index')
         ->with('msg', 'Anti-Rabies Brand '.strtoupper($request->brand_name).' was successfully added.')
         ->with('msgtype', 'success');
+    }
+
+    public function vaccinebrand_edit($id) {
+
+    }
+
+    public function vaccinebrand_update($id, Request $request) {
+
     }
 }

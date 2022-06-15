@@ -33,6 +33,7 @@
                     <tr>
                         <td class="text-center">{{$d->id}}</td>
                         <td>{{$d->brand_name}}</td>
+                        <td class="text-center">{{$d->generic_name}}</td>
                         <td class="text-center">{{($d->enabled == 1) ? 'Y' : 'N'}}</td>
                         <td class="text-center">{{date('m/d/Y H:i A', strtotime($d->created_at))}}</td>
                     </tr>
