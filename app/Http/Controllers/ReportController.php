@@ -125,7 +125,9 @@ class ReportController extends Controller
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
-                $hrig = BakunaRecords::whereHas('patient', function($q) {
+                $hrig = 0;
+
+                $erig = BakunaRecords::whereHas('patient', function($q) {
                     $q->where('register_status', 'VERIFIED');
                 })
                 ->where('outcome', 'C')
@@ -134,6 +136,10 @@ class ReportController extends Controller
                 ->where('vaccination_site_id', $v->id)
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
+
+                $ir1 = 0;
+                $ir2 = 0;
+                $ir3 = 0;
 
                 $sheet->setCellValue('A'.$i, $v->site_name);
 
@@ -147,9 +153,13 @@ class ReportController extends Controller
                 $sheet->setCellValue('J'.$i, $cat2_count);
                 $sheet->setCellValue('K'.$i, $cat3_count);
 
+                $sheet->setCellValue('P'.$i, $ir1);
+                $sheet->setCellValue('Q'.$i, $ir2);
+                $sheet->setCellValue('R'.$i, $ir3);
+
                 $sheet->setCellValue('S'.$i, $tcv_count);
                 $sheet->setCellValue('T'.$i, $hrig);
-                $sheet->setCellValue('T'.$i, 0); //ERIG
+                $sheet->setCellValue('T'.$i, $erig); //ERIG
 
                 $sheet->setCellValue('V'.$i, $dog_count);
                 $sheet->setCellValue('W'.$i, $cat_count);
