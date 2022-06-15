@@ -41,10 +41,12 @@ class AdminController extends Controller
     public function vaccinebrand_store(Request $request) {
         $request->validate([
             'brand_name' => 'required',
+            'generic_name' => 'required',
         ]);
 
         VaccineBrand::create([
-            'brand_name' => strtoupper($request->brand_name),
+            'brand_name' => mb_strtoupper($request->brand_name),
+            'generic_name' => mb_strtoupper($request->type),
         ]);
 
         return redirect()->route('vaccinebrand_index')

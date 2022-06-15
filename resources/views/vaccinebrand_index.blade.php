@@ -23,6 +23,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Brand Name</th>
+                        <th>Generic Name</th>
                         <th>Enabled</th>
                         <th>Date Created</th>
                     </tr>
@@ -56,8 +57,17 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                      <label for="brand_name" class="form-label">Brand Name</label>
-                      <input type="text" class="form-control" name="brand_name" id="brand_name" required>
+                        <label for="brand_name" class="form-label">Brand Name</label>
+                        <input type="text" class="form-control" name="brand_name" id="brand_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="generic_name" class="form-label">Generic Name</label>
+                        <select class="form-control" name="generic_name" id="generic_name" required>
+                            <option value="" disabled {{(is_null(old('generic_name'))) ? 'selected' : ''}}>Choose...</option>
+                            <option value="PCEC" {{(old('generic_name') == 'PCEC') ? 'selected' : ''}}>PURIFIED CHICK EMBRYO CELL VACCINE (PCEC)</option>
+                            <option value="PVRV" {{(old('generic_name') == 'PVRV') ? 'selected' : ''}}>PURIFIED VERO CELL RABIES VACCINE (PVRV)</option>
+                            <option value="OTHERS" {{(old('generic_name') == 'OTHERS') ? 'selected' : ''}}>OTHERS</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

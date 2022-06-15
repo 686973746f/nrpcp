@@ -11,6 +11,7 @@ class VaccineBrand extends Model
 
     protected $fillable = [
         'brand_name',
+        'generic_name',
         'enabled',
     ];
 }
