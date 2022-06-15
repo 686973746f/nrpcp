@@ -9,7 +9,9 @@
                 <div class="card-body text-center">
                     <p>{{session('msg')}}</p>
                     @if(session('dose') != 5)
-                    <p>Please see the details below for your next schedule:</p>
+                    <div class="alert alert-info" role="alert">
+                        <b class="text-danger">Reminders:</b> Observe the responsible animal for 14 days and report to the veterinarian any changes noted in the animal during the observation period. And please see the details below for your next doses schedule.
+                    </div>
                     @endif
                     <hr>
                     {!! QrCode::size(150)->generate($f->patient->qr) !!}
@@ -59,7 +61,11 @@
                             @endif
                         </tbody>
                     </table>
-                    
+                    <p class="text-center"><b>ABTC Offices:</b></p>
+                    <ul class="text-center">
+                        <li>City Health Office - Main, Pinagtipunan, General Trias City</li>
+                        <li>Barangay Health Center - Manggahan, General Trias City</li>
+                    </ul>
                 </div>
                 <div class="card-footer text-center">
                     <a href="{{route('home')}}" class="btn btn-link"><i class="fa-solid fa-house me-2"></i>Back to Home</a>

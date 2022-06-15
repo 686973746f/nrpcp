@@ -151,20 +151,20 @@
                                 </div>
                                 <div id="ifanimaltype_othersdiv" class="d-none">
                                     <div class="mb-3">
-                                        <label for="animal_type_others" class="form-label"><strong class="text-danger">*</strong>Pakitukoy kung anong uri ng hayop</label>
+                                        <label for="animal_type_others" class="form-label"><strong class="text-danger">*</strong>Pakitukoy kung anong uri ng hayop ang kumagat/kumalmot</label>
                                         <input type="text" class="form-control" name="animal_type_others" id="animal_type_others" value="{{old('animal_type_others')}}">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label for="bite_date" class="form-label"><strong class="text-danger">*</strong>Kailan nakagat?</label>
+                                    <label for="bite_date" class="form-label"><strong class="text-danger">*</strong>Kailan nakagat/nakalmot?</label>
                                     <input type="date" class="form-control" name="bite_date" id="bite_date" min="2000-01-01" max="{{date('Y-m-d')}}" value="{{old('bite_date')}}" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label for="case_location" class="form-label"><strong id="case_location_ast" class="text-danger">*</strong>Saang lugar nangyari ang pangangagat?</label>
+                                    <label for="case_location" class="form-label"><strong id="case_location_ast" class="text-danger">*</strong>Saang lugar nangyari ang pangangagat/pangangalmot?</label>
                                     <input type="text" class="form-control" name="case_location" id="case_location" value="{{old('case_location')}}" required>
                                 </div>
                             </div>
@@ -178,7 +178,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label for="washing_of_bite" class="form-label"><strong class="text-danger">*</strong>Nahugasan na ang sugat?</label>
+                                    <label for="washing_of_bite" class="form-label"><strong class="text-danger">*</strong>Hinugasan ng Sabon ang Sugat?</label>
                                     <select class="form-select" name="washing_of_bite" id="washing_of_bite" required>
                                         <option value="" disabled {{is_null(old('washing_of_bite')) ? 'selected' : ''}}>Pumili...</option>
                                         <option value="Y" {{(old('washing_of_bite') == 'Y') ? 'selected' : ''}}>Oo / Yes</option>
@@ -188,7 +188,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label for="ifbleeding" class="form-label"><strong class="text-danger">*</strong>Dumugo ba ang kagat o kalmot?</label>
+                                    <label for="ifbleeding" class="form-label"><strong class="text-danger">*</strong>Dumugo ba ang sugat?</label>
                                     <select class="form-select" name="ifbleeding" id="ifbleeding" required>
                                         <option value="" disabled {{is_null(old('ifbleeding')) ? 'selected' : ''}}>Pumili...</option>
                                         <option value="Y" {{(old('ifbleeding') == 'Y') ? 'selected' : ''}}>Oo, dumugo</option>

@@ -445,25 +445,63 @@ class VaccinationController extends Controller
 
         if($d->d0_done == 0) {
             $d->d0_date = $request->d0_date;
+
+            if($request->d0_ostatus == 'C') {
+                $d->d0_done = 1;
+            }
         }
 
         if($d->d3_done == 0) {
             $d->d3_date = $request->d3_date;
+
+            if($request->d3_ostatus == 'C') {
+                $d->d0_done = 1;
+                $d->d3_done = 1;
+
+                if($d->outcome == 'INC' && $d->is_booster == 1) {
+                    $d->outcome = 'C';
+                }
+            }
         }
 
         if($d->is_booster == 0) {
             if($d->d7_done == 0) {
                 $d->d7_date = $request->d7_date;
+
+                if($request->d7_ostatus == 'C') {
+                    $d->d0_done = 1;
+                    $d->d3_done = 1;
+                    $d->d7_done = 1;
+                }
             }
     
             if($d->pep_route == 'IM') {
                 if($d->d14_done == 0) {
                     $d->d14_date = $request->d14_date;
+
+                    if($request->d14_ostatus == 'C') {
+                        $d->d0_done = 1;
+                        $d->d3_done = 1;
+                        $d->d7_done = 1;
+                        $d->d14_done = 1;
+                    }
                 }
             }
     
             if($d->d28_done == 0) {
                 $d->d28_date = $request->d28_date;
+
+                if($request->d28_ostatus == 'C') {
+                    $d->d0_done = 1;
+                    $d->d3_done = 1;
+                    $d->d7_done = 1;
+                    $d->d14_done = 1;
+                    $d->d28_done = 1;
+
+                    if($d->outcome == 'INC' && $d->is_booster == 0) {
+                        $d->outcome = 'C';
+                    }
+                }
             }
         }
 
@@ -472,7 +510,7 @@ class VaccinationController extends Controller
         }
 
         return redirect()->route('encode_edit', ['br_id' => $d->id])
-        ->with('msg', 'Schedule has been manually changed.')
+        ->with('msg', 'Schedule has been manually changed successfully.')
         ->with('msgtype', 'success');
     }
 }
