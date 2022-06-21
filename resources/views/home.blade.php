@@ -119,13 +119,13 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="start_date" class="form-label">Start Date</label>
-                  <input type="text" class="form-control" name="start_date" id="start_date" value="{{old('start_date', date('Y-m-01', strtotime('-3 Months')))}}" max="{{date('Y-m-d')}}" required>
+                  <input type="date" class="form-control" name="start_date" id="start_date" value="{{old('start_date', date('Y-m-01', strtotime('-3 Months')))}}" max="{{date('Y-m-d')}}" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="end_date" class="form-label">End Date</label>
-                  <input type="text" class="form-control" name="end_date" id="end_date" value="{{old('end_date', date('Y-m-d'))}}" max="{{date('Y-m-d')}}" required>
+                  <input type="date" class="form-control" name="end_date" id="end_date" value="{{old('end_date', date('Y-m-d'))}}" max="{{date('Y-m-d')}}" required>
                 </div>
               </div>
             </div>

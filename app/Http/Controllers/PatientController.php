@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Patient;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -54,12 +55,20 @@ class PatientController extends Controller
                 }
             }
 
+            if($request->has_bday == 'Yes') {
+                $get_age = Carbon::parse($request->bdate)->age;
+            }
+            else {
+                $get_age = $request->age;
+            }
+
             $create = $request->user()->patient()->create([
                 'lname' => mb_strtoupper($request->lname),
                 'fname' => mb_strtoupper($request->fname),
                 'mname' => ($request->filled('mname')) ? mb_strtoupper($request->mname) : NULL,
                 'suffix' => ($request->filled('suffix')) ? mb_strtoupper($request->suffix) : NULL,
                 'bdate' => $request->bdate,
+                'age' => $get_age,
                 'gender' => $request->gender,
                 'contact_number' => $request->contact_number,
                 'address_region_code' => $request->address_region_code,
@@ -120,11 +129,19 @@ class PatientController extends Controller
             ->with('msgtype', 'warning');
         }
         else {
+            if($request->has_bday == 'Yes') {
+                $get_age = Carbon::parse($request->bdate)->age;
+            }
+            else {
+                $get_age = $request->age;
+            }
+
             $p->lname = mb_strtoupper($request->lname);
             $p->fname = mb_strtoupper($request->fname);
             $p->mname = ($request->filled('mname')) ? mb_strtoupper($request->mname) : NULL;
             $p->suffix = ($request->filled('suffix')) ? mb_strtoupper($request->suffix) : NULL;
             $p->bdate = $request->bdate;
+            $p->age = $get_age;
             $p->gender = $request->gender;
             $p->contact_number = $request->contact_number;
             $p->address_region_code = $request->address_region_code;

@@ -443,17 +443,17 @@ class VaccinationController extends Controller
             
         ]);
 
-        if($d->d0_done == 0) {
-            $d->d0_date = $request->d0_date;
+        $d->d0_date = $request->d0_date;
 
+        if($d->d0_done == 0) {
             if($request->d0_ostatus == 'C') {
                 $d->d0_done = 1;
             }
         }
 
-        if($d->d3_done == 0) {
-            $d->d3_date = $request->d3_date;
+        $d->d3_date = $request->d3_date;
 
+        if($d->d3_done == 0) {
             if($request->d3_ostatus == 'C') {
                 $d->d0_done = 1;
                 $d->d3_done = 1;
@@ -465,9 +465,10 @@ class VaccinationController extends Controller
         }
 
         if($d->is_booster == 0) {
-            if($d->d7_done == 0) {
-                $d->d7_date = $request->d7_date;
 
+            $d->d7_date = $request->d7_date;
+
+            if($d->d7_done == 0) {
                 if($request->d7_ostatus == 'C') {
                     $d->d0_done = 1;
                     $d->d3_done = 1;
@@ -476,9 +477,10 @@ class VaccinationController extends Controller
             }
     
             if($d->pep_route == 'IM') {
-                if($d->d14_done == 0) {
-                    $d->d14_date = $request->d14_date;
 
+                $d->d14_date = $request->d14_date;
+
+                if($d->d14_done == 0) {
                     if($request->d14_ostatus == 'C') {
                         $d->d0_done = 1;
                         $d->d3_done = 1;
@@ -487,10 +489,10 @@ class VaccinationController extends Controller
                     }
                 }
             }
+
+            $d->d28_date = $request->d28_date;
     
             if($d->d28_done == 0) {
-                $d->d28_date = $request->d28_date;
-
                 if($request->d28_ostatus == 'C') {
                     $d->d0_done = 1;
                     $d->d3_done = 1;

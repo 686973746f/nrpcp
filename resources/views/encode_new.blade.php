@@ -33,7 +33,7 @@
                         </tr>
                         <tr>
                             <td><strong>Birthdate/Age/Gender</strong></td>
-                            <td>{{date('m-d-Y', strtotime($d->bdate))}} / {{$d->getAge()}} / {{$d->sg()}}</td>
+                            <td>{{(!is_null($d->bdate)) ? date('m-d-Y', strtotime($d->bdate)) : 'N/A'}} / {{$d->getAge()}} / {{$d->sg()}}</td>
                         </tr>
                         <tr>
                             <td><strong>Address</strong></td>
@@ -41,7 +41,7 @@
                         </tr>
                         <tr>
                             <td><strong>Contact No.</strong></td>
-                            <td>{{$d->contact_number}}</td>
+                            <td>{{(!is_null($d->contact_number)) ? $d->contact_number : 'N/A'}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -60,8 +60,8 @@
                     </div>
                     <div class="col-md">
                         <div>
-                            <label for="case_date" class="form-label"><strong class="text-danger">*</strong>Date of Registration</label>
-                            <input type="date" class="form-control" name="case_date" id="case_date" min="2000-01-01" max="{{date('Y-m-d')}}" value="{{old('case_date', date('Y-m-d'))}}" required>
+                            <label for="case_date" class="form-label"><strong class="text-danger">*</strong>Registration Date</label>
+                            <input type="date" class="form-control" name="case_date" id="case_date" min="{{date('Y-01-01')}}" max="{{date('Y-m-d')}}" value="{{old('case_date')}}" required>
                             <small class="text-muted">Date patient was first seen, regardless whether patient was given PEP or not.</small>
                         </div>
                     </div>
@@ -90,7 +90,6 @@
                         <div class="mb-3">
                             <label for="bite_type" class="form-label"><strong class="text-danger">*</strong>Type of Bite</label>
                             <select class="form-select" name="bite_type" id="bite_type" required>
-                                <option value="" disabled {{is_null(old('bite_type')) ? 'selected' : ''}}>Choose...</option>
                                 <option value="B" {{(old('bite_type') == 'B') ? 'selected' : ''}}>Bite (B)</option>
                                 <option value="NB" {{(old('bite_type') == 'NB') ? 'selected' : ''}}>None Bite (NB)</option>
                             </select>
@@ -135,7 +134,6 @@
                         <div class="mb-3">
                             <label for="washing_of_bite" class="form-label"><strong class="text-danger">*</strong>Washing of Bite</label>
                             <select class="form-select" name="washing_of_bite" id="washing_of_bite" required>
-                                <option value="" disabled {{is_null(old('washing_of_bite')) ? 'selected' : ''}}>Choose...</option>
                                 <option value="Y" {{(old('washing_of_bite') == 'Y') ? 'selected' : ''}}>Yes</option>
                                 <option value="N" {{(old('washing_of_bite') == 'N') ? 'selected' : ''}}>No</option>
                             </select>
@@ -154,7 +152,6 @@
                         <div class="mb-3">
                             <label for="pep_route" class="form-label"><strong class="text-danger">*</strong>Route</label>
                             <select class="form-select" name="pep_route" id="pep_route" required>
-                                <option value="" disabled {{is_null(old('pep_route')) ? 'selected' : ''}}>Choose...</option>
                                 <option value="ID" {{(old('pep_route') == 'ID') ? 'selected' : ''}}>ID - Intradermal</option>
                                 <option value="IM" {{(old('pep_route') == 'IM') ? 'selected' : ''}}>IM - Intramuscular</option>
                             </select>
@@ -174,7 +171,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="d0_date" class="form-label"><strong class="text-danger">*</strong>First Vaccine / Day 0 Date</label>
-                    <input type="date" class="form-control" name="d0_date" id="d0_date" min="2000-01-01" max="{{date('Y-m-d')}}" value="{{old('d0_date', date('Y-m-d'))}}" required>
+                    <input type="date" class="form-control" name="d0_date" id="d0_date" min="{{date('Y-01-01')}}" max="{{date('Y-m-d')}}" value="{{old('d0_date')}}" required>
                     <small class="text-muted">Schedule date for Day 3, Day 7 onwards will be automatically given after you finish the encoding.</small>
                 </div>
                 <div class="row">

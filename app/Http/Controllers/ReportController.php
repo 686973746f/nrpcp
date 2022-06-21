@@ -54,7 +54,10 @@ class ReportController extends Controller
                 ->count();
 
                 $less15 = BakunaRecords::whereHas('patient', function($q) {
-                    $q->whereRaw('TIMESTAMPDIFF(YEAR, bdate, CURDATE()) < 15')
+                    $q->where(function ($r) {
+                        $r->whereRaw('TIMESTAMPDIFF(YEAR, bdate, CURDATE()) < 15')
+                        ->orWhere('age', '<', 15);
+                    })
                     ->where('register_status', 'VERIFIED');
                 })
                 ->where('vaccination_site_id', $v->id)
@@ -62,7 +65,10 @@ class ReportController extends Controller
                 ->count();
 
                 $great15 = BakunaRecords::whereHas('patient', function($q) {
-                    $q->whereRaw('TIMESTAMPDIFF(YEAR, bdate, CURDATE()) >= 15')
+                    $q->where(function ($r) {
+                        $r->whereRaw('TIMESTAMPDIFF(YEAR, bdate, CURDATE()) >= 15')
+                        ->orWhere('age', '>=', 15);
+                    })
                     ->where('register_status', 'VERIFIED');
                 })
                 ->where('vaccination_site_id', $v->id)
@@ -137,6 +143,12 @@ class ReportController extends Controller
                 ->whereBetween('case_date', [$sd, $ed])
                 ->count();
 
+                $booster_count = BakunaRecords::where('vaccination_site_id', $v->id)
+                ->where('is_booster', 1)
+                ->where('outcome', 'C')
+                ->whereBetween('case_date', [$sd, $ed])
+                ->count();
+
                 $ir1 = 0;
                 $ir2 = 0;
                 $ir3 = 0;
@@ -171,7 +183,7 @@ class ReportController extends Controller
 
             $i = $i+1;
 
-            $fileName = 'RPP_AR.xlsx';
+            $fileName = 'RPP_AR_'.date('m_d_Y').'.xlsx';
             ob_clean();
             $writer = new Xlsx($spreadsheet);
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

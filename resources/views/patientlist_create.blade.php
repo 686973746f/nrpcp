@@ -44,8 +44,19 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="mb-3">
-                          <label for="bdate" class="form-label"><b class="text-danger">*</b>Birthdate</label>
-                          <input type="date" class="form-control" name="bdate" id="bdate" value="{{old('bdate')}}" min="1900-01-01" max="{{date('Y-m-d', strtotime('yesterday'))}}" required>
+                          <label for="has_bday" class="form-label"><span class="text-danger font-weight-bold">*</span>Has Birthday</label>
+                          <select class="form-select" name="has_bday" id="has_bday" required>
+                            <option value="No" {{(old('has_bday') == 'No') ? 'selected' : ''}}>No</option>
+                            <option value="Yes" {{(old('has_bday') == 'Yes') ? 'selected' : ''}}>Yes</option>
+                          </select>
+                        </div>
+                        <div class="mb-3 d-none" id="ybday">
+                            <label for="bdate" class="form-label"><b class="text-danger">*</b>Birthdate</label>
+                            <input type="date" class="form-control" name="bdate" id="bdate" value="{{old('bdate')}}" min="1900-01-01" max="{{date('Y-m-d', strtotime('yesterday'))}}">  
+                        </div>
+                        <div class="mb-3 d-none" id="nbday">
+                            <label for="age" class="form-label"><b class="text-danger">*</b>Age (In Years)</label>
+                            <input type="number" class="form-control" name="age" id="age" value="{{old('age')}}" min="0" max="150">  
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -60,8 +71,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="contact_number" class="form-label"><span class="text-danger font-weight-bold">*</span>Contact Number (Mobile)</label>
-                            <input type="text" class="form-control" id="contact_number" name="contact_number" value="{{old('contact_number', '09')}}" pattern="[0-9]{11}" placeholder="09xxxxxxxxx" required>
+                            <label for="contact_number" class="form-label">Contact Number <small><i>(If Applicable)</i></small></label>
+                            <input type="text" class="form-control" id="contact_number" name="contact_number" value="{{old('contact_number')}}" pattern="[0-9]{11}" placeholder="09xxxxxxxxx">
                         </div>
                     </div>
                 </div>
@@ -114,14 +125,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="address_houseno" class="form-label"><span class="text-danger font-weight-bold">*</span>House No./Lot/Building</label>
-                            <input type="text" class="form-control" id="address_houseno" name="address_houseno" style="text-transform: uppercase;" value="{{old('address_houseno')}}" pattern="(^[a-zA-Z0-9 ]+$)+" required>
+                            <label for="address_houseno" class="form-label">House No./Lot/Building</label>
+                            <input type="text" class="form-control" id="address_houseno" name="address_houseno" style="text-transform: uppercase;" value="{{old('address_houseno')}}" pattern="(^[a-zA-Z0-9 ]+$)+">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="address_street" class="form-label"><span class="text-danger font-weight-bold">*</span>Street/Subdivision/Purok/Sitio</label>
-                            <input type="text" class="form-control" id="address_street" name="address_street" style="text-transform: uppercase;" value="{{old('address_street')}}" pattern="(^[a-zA-Z0-9 ]+$)+" required>
+                            <label for="address_street" class="form-label">Street/Subdivision/Purok/Sitio</label>
+                            <input type="text" class="form-control" id="address_street" name="address_street" style="text-transform: uppercase;" value="{{old('address_street')}}" pattern="(^[a-zA-Z0-9 ]+$)+">
                         </div>
                     </div>
                 </div>
@@ -277,5 +288,23 @@
     $('#address_region_text').val('REGION IV-A (CALABARZON)');
     $('#address_province_text').val('CAVITE');
     $('#address_muncity_text').val('GENERAL TRIAS');
+
+    $('#has_bday').change(function (e) { 
+        e.preventDefault();
+        if($(this).val() == 'Yes') {
+            $('#ybday').removeClass('d-none');
+            $('#nbday').addClass('d-none');
+
+            $('#bdate').prop('required', true);
+            $('#age').prop('required', false);
+        }
+        else {
+            $('#ybday').addClass('d-none');
+            $('#nbday').removeClass('d-none');
+
+            $('#bdate').prop('required', false);
+            $('#age').prop('required', true);
+        }
+    }).trigger('change');
 </script>
 @endsection

@@ -21,6 +21,7 @@ class Patient extends Model
         'mname',
         'suffix',
         'bdate',
+        'age',
         'gender',
         'contact_number',
         'address_region_code',
@@ -54,7 +55,12 @@ class Patient extends Model
     }
 
     public function getAddress() {
-        return $this->address_houseno.', '.$this->address_street.', BRGY. '.$this->address_brgy_text.', '.$this->address_muncity_text.', '.$this->address_province_text;
+        if(!is_null($this->address_houseno) || !is_null($this->address_street)) {
+            return $this->address_houseno.' '.$this->address_street.', BRGY. '.$this->address_brgy_text.', '.$this->address_muncity_text.', '.$this->address_province_text;
+        }
+        else {
+            return $this->getAddressMini();
+        }
     }
 
     public function getAddressMini() {
@@ -66,21 +72,31 @@ class Patient extends Model
     }
 
     public function getAge() {
-        if(Carbon::parse($this->attributes['bdate'])->age > 0) {
-            return Carbon::parse($this->attributes['bdate'])->age;
-        }
-        else {
-            if (Carbon::parse($this->attributes['bdate'])->diff(\Carbon\Carbon::now())->format('%m') == 0) {
-                return Carbon::parse($this->attributes['bdate'])->diff(\Carbon\Carbon::now())->format('%d DAYS');
+        if(!is_null($this->bdate)) {
+            if(Carbon::parse($this->attributes['bdate'])->age > 0) {
+                return Carbon::parse($this->attributes['bdate'])->age;
             }
             else {
-                return Carbon::parse($this->attributes['bdate'])->diff(\Carbon\Carbon::now())->format('%m MOS');
+                if (Carbon::parse($this->attributes['bdate'])->diff(\Carbon\Carbon::now())->format('%m') == 0) {
+                    return Carbon::parse($this->attributes['bdate'])->diff(\Carbon\Carbon::now())->format('%d DAYS');
+                }
+                else {
+                    return Carbon::parse($this->attributes['bdate'])->diff(\Carbon\Carbon::now())->format('%m MOS');
+                }
             }
+        }
+        else {
+            return $this->age;
         }
     }
 
     public function getAgeInt() {
-        return Carbon::parse($this->attributes['bdate'])->age;
+        if(!is_null($this->bdate)) {
+            return Carbon::parse($this->attributes['bdate'])->age;
+        }
+        else {
+            return $this->age;
+        }
     }
 
     public static function ifDuplicateFound($lname, $fname, $mname, $suffix, $bdate) {

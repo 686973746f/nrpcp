@@ -30,7 +30,7 @@
                                 <td scope="row"><b>Day 0</b></td>
                                 <td>{{date('m/d/Y (l)', strtotime($d->d0_date))}}</td>
                                 <td>
-                                    <input type="date" class="form-control" name="d0_date" id="d0_date" value="{{old('d0_date', $d->d0_date)}}" {{($d->d0_done == 1) ? 'disabled' : 'required'}}>
+                                    <input type="date" class="form-control" name="d0_date" id="d0_date" value="{{old('d0_date', $d->d0_date)}}" required>
                                 </td>
                                 <td>
                                     @if($d->d0_done == 0)
@@ -47,7 +47,7 @@
                                 <td scope="row"><b>Day 3</b></td>
                                 <td>{{date('m/d/Y (l)', strtotime($d->d3_date))}}</td>
                                 <td>
-                                    <input type="date" class="form-control" name="d3_date" id="d3_date" value="{{old('d3_date', $d->d3_date)}}" min="{{date('Y-m-d', strtotime($d->d0_date))}}" {{($d->d3_done == 1) ? 'disabled' : 'required'}}>
+                                    <input type="date" class="form-control" name="d3_date" id="d3_date" value="{{old('d3_date', $d->d3_date)}}" required>
                                 </td>
                                 <td>
                                     @if($d->d3_done == 0)
@@ -65,7 +65,7 @@
                                 <td scope="row"><b>Day 7</b></td>
                                 <td>{{date('m/d/Y (l)', strtotime($d->d7_date))}}</td>
                                 <td>
-                                    <input type="date" class="form-control" name="d7_date" id="d7_date" value="{{old('d7_date', $d->d7_date)}}" min="{{date('Y-m-d', strtotime($d->d3_date))}}" {{($d->d7_done == 1) ? 'disabled' : 'required'}}>
+                                    <input type="date" class="form-control" name="d7_date" id="d7_date" value="{{old('d7_date', $d->d7_date)}}" required>
                                 </td>
                                 <td>
                                     @if($d->d7_done == 0)
@@ -83,7 +83,7 @@
                                 <td scope="row"><b>Day 14</b></td>
                                 <td>{{date('m/d/Y (l)', strtotime($d->d14_date))}}</td>
                                 <td>
-                                    <input type="date" class="form-control" name="d14_date" id="d14_date" value="{{old('d14_date', $d->d14_date)}}" min="{{date('Y-m-d', strtotime($d->d7_date))}}" {{($d->d14_done == 1) ? 'disabled' : 'required'}}>
+                                    <input type="date" class="form-control" name="d14_date" id="d14_date" value="{{old('d14_date', $d->d14_date)}}" required>
                                 </td>
                                 <td>
                                     @if($d->d14_done == 0)
@@ -101,7 +101,7 @@
                                 <td scope="row"><b>Day 28</b></td>
                                 <td>{{date('m/d/Y (l)', strtotime($d->d28_date))}}</td>
                                 <td>
-                                    <input type="date" class="form-control" name="d28_date" id="d28_date" value="{{old('d28_date', $d->d28_date)}}" min="{{date('Y-m-d', strtotime($d->d14_date))}}" {{($d->d28_done == 1) ? 'disabled' : 'required'}}>
+                                    <input type="date" class="form-control" name="d28_date" id="d28_date" value="{{old('d28_date', $d->d28_date)}}" required>
                                 </td>
                                 <td>
                                     @if($d->d28_done == 0)

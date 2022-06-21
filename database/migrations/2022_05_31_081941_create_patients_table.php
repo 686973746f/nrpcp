@@ -21,9 +21,10 @@ return new class extends Migration
             $table->string('fname');
             $table->string('mname')->nullable();
             $table->string('suffix')->nullable();
-            $table->date('bdate');
+            $table->date('bdate')->nullable();
+            $table->integer('age')->nullable();
             $table->string('gender');
-            $table->string('contact_number');
+            $table->string('contact_number')->nullable();
 
             $table->text('address_region_code');
             $table->text('address_region_text');
@@ -33,8 +34,8 @@ return new class extends Migration
             $table->text('address_muncity_text');
             $table->text('address_brgy_code');
             $table->text('address_brgy_text');
-            $table->text('address_street');
-            $table->text('address_houseno');
+            $table->text('address_street')->nullable();
+            $table->text('address_houseno')->nullable();
             
             $table->text('remarks')->nullable();
             $table->text('qr');

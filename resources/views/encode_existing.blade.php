@@ -46,7 +46,7 @@
                                 </tr>
                                 <tr>
                                     <td class="bg-light" style="vertical-align: middle"><strong>Birthdate/Age/Gender</strong></td>
-                                    <td>{{date('m-d-Y', strtotime($d->patient->bdate))}} / {{$d->patient->getAge()}} / {{$d->patient->sg()}}</td>
+                                    <td>{{(!is_null($d->bdate)) ? date('m-d-Y', strtotime($d->patient->bdate)) : 'N/A'}} / {{$d->patient->getAge()}} / {{$d->patient->sg()}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bg-light" style="vertical-align: middle"><strong>Address</strong></td>

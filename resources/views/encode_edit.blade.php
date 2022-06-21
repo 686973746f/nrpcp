@@ -54,7 +54,7 @@
                         </tr>
                         <tr>
                             <td class="bg-light"><strong>Birthdate/Age/Gender</strong></td>
-                            <td>{{date('m-d-Y', strtotime($d->patient->bdate))}} / {{$d->patient->getAge()}} / {{$d->patient->sg()}}</td>
+                            <td>{{!is_null($d->bdate) ? date('m-d-Y', strtotime($d->patient->bdate)) : 'N/A'}} / {{$d->patient->getAge()}} / {{$d->patient->sg()}}</td>
                         </tr>
                         <tr>
                             <td class="bg-light"><strong>Address</strong></td>
@@ -80,7 +80,7 @@
                     </div>
                     <div class="col-md">
                         <div>
-                            <label for="case_date" class="form-label"><strong class="text-danger">*</strong>Date of Registration</label>
+                            <label for="case_date" class="form-label"><strong class="text-danger">*</strong>Registration Date</label>
                             <input type="date" class="form-control" name="case_date" id="case_date" min="2000-01-01" max="{{date('Y-m-d')}}" value="{{old('case_date', $d->case_date)}}" required>
                             <small class="text-muted">Date patient was first seen, regardless whether patient was given PEP or not.</small>
                         </div>
@@ -110,7 +110,6 @@
                         <div class="mb-3">
                             <label for="bite_type" class="form-label"><strong class="text-danger">*</strong>Type of Bite</label>
                             <select class="form-select" name="bite_type" id="bite_type" required>
-                                <option value="" disabled {{is_null(old('bite_type', $d->bite_type)) ? 'selected' : ''}}>Choose...</option>
                                 <option value="B" {{(old('bite_type', $d->bite_type) == 'B') ? 'selected' : ''}}>Bite (B)</option>
                                 <option value="NB" {{(old('bite_type', $d->bite_type) == 'NB') ? 'selected' : ''}}>None Bite (NB)</option>
                             </select>
@@ -174,7 +173,6 @@
                         <div class="mb-3">
                             <label for="pep_route" class="form-label"><strong class="text-danger">*</strong>Route</label>
                             <select class="form-select" name="pep_route" id="pep_route" required>
-                                <option value="" disabled {{is_null(old('pep_route', $d->pep_route)) ? 'selected' : ''}}>Choose...</option>
                                 <option value="ID" {{(old('pep_route', $d->pep_route) == 'ID') ? 'selected' : ''}}>ID - Intradermal</option>
                                 <option value="IM" {{(old('pep_route', $d->pep_route) == 'IM') ? 'selected' : ''}}>IM - Intramuscular</option>
                             </select>

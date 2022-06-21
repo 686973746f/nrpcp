@@ -19,7 +19,7 @@
                     <p><strong>Name:</strong> <u>{{$f->patient->getName()}}</u></p>
                     <p><strong>Age/Gender:</strong> <u>{{$f->patient->getAge()}} / {{$f->patient->sg()}}</u></p>
                     <p><strong>Address:</strong> <u>{{$f->patient->getAddressMini()}}</u></p>
-                    <p><strong>Contact #: </strong> <u>{{$f->patient->contact_number}}</u></p>
+                    <p><strong>Contact #: </strong> <u>{{(!is_null($f->patient->contact_number)) ? $f->patient->contact_number : 'N/A'}}</u></p>
                     <p><strong>Type of Animal:</strong> • <strong>Date of Bite:</strong> <u>{{date('m/d/Y (l)', strtotime($f->bite_date))}}</u> </p>
                     <p><strong>Body Part:</strong> <u>{{$f->body_site}} • <strong>Category:</strong> <u>{{$f->category_level}}</u></p>
                     <p><strong>Health Facility:</strong> <u>{{$f->vaccinationsite->site_name}}</u></p>
@@ -69,6 +69,8 @@
                 </div>
                 <div class="card-footer text-center">
                     <a href="{{route('home')}}" class="btn btn-link"><i class="fa-solid fa-house me-2"></i>Back to Home</a>
+                    <hr>
+                    <a href="{{route('encode_edit', ['br_id' => $f->id])}}">Back to Patient Animal Bite Record</a>
                 </div>
             </div>
         </div>

@@ -47,12 +47,12 @@
                     <tbody>
                         @foreach($list as $d)
                         <tr>
-                            <td class="text-center">{{$d->id}}</td>
+                            <td class="text-center">{{$loop->iteration}}</td>
                             <td><a href="{{route('patient_edit', ['id' => $d->id])}}">{{$d->getName()}}</a></td>
                             <td class="text-center">{{$d->getAge()}} / {{$d->sg()}}</td>
-                            <td class="text-center">{{$d->contact_number}}</td>
+                            <td class="text-center">{{(!is_null($d->contact_number)) ? $d->contact_number : 'N/A'}}</td>
                             <td><small>{{$d->getAddress()}}</small></td>
-                            <td class="text-center">{{date('m/d/Y h:i A', strtotime($d->created_at))}} @if($d->created_by) / {{$d->user->name}}@endif</td>
+                            <td class="text-center">{{date('m/d/Y h:i A', strtotime($d->created_at))}} @if($d->created_by) / <small>{{$d->user->name}}</small>@endif</td>
                         </tr>
                         @endforeach
                     </tbody>
