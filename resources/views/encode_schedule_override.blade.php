@@ -121,10 +121,24 @@
             </div>
             @if($d->outcome != 'C')
             <div class="card-footer text-end">
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary" id="submitbtn">Save (CTRL + S)</button>
             </div>
             @endif
         </div>
     </div>
 </form>
+
+<script>
+    $(document).bind('keydown', function(e) {
+		if(e.ctrlKey && (e.which == 83)) {
+			e.preventDefault();
+			$('#submitbtn').trigger('click');
+			$('#submitbtn').prop('disabled', true);
+			setTimeout(function() {
+				$('#submitbtn').prop('disabled', false);
+			}, 2000);
+			return false;
+		}
+	});
+</script>
 @endsection

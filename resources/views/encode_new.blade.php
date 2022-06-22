@@ -82,7 +82,7 @@
                         <div id="ifanimaltype_othersdiv" class="d-none">
                             <div class="mb-3">
                                 <label for="animal_type_others" class="form-label"><strong class="text-danger">*</strong>Others, Please state Animal</label>
-                                <input type="text" class="form-control" name="animal_type_others" id="animal_type_others" value="{{old('animal_type_others')}}">
+                                <input type="text" class="form-control" name="animal_type_others" id="animal_type_others" value="{{old('animal_type_others')}}" style="text-transform: uppercase;">
                             </div>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="case_location" class="form-label"><strong id="case_location_ast" class="d-none text-danger">*</strong>Place (Where biting occured)</label>
-                            <input type="text" class="form-control" name="case_location" id="case_location" value="{{old('case_location')}}">
+                            <input type="text" class="form-control" name="case_location" id="case_location" value="{{old('case_location')}}" style="text-transform: uppercase;">
                         </div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="body_site" class="form-label"><strong id="body_site_ast" class="d-none text-danger">*</strong>Site (Body Parts)</label>
-                            <input type="text" class="form-control" name="body_site" id="body_site" value="{{old('body_site')}}">
+                            <input type="text" class="form-control" name="body_site" id="body_site" value="{{old('body_site')}}" style="text-transform: uppercase;">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -205,13 +205,25 @@
                 </div>
             </div>
             <div class="card-footer text-end">
-                <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk me-2"></i>Save</button>
+                <button type="submit" class="btn btn-success" id="submitbtn"><i class="fa-solid fa-floppy-disk me-2"></i>Save (CTRL + S)</button>
             </div>
         </div>
     </div>
 </form>
 
 <script>
+    $(document).bind('keydown', function(e) {
+		if(e.ctrlKey && (e.which == 83)) {
+			e.preventDefault();
+			$('#submitbtn').trigger('click');
+			$('#submitbtn').prop('disabled', true);
+			setTimeout(function() {
+				$('#submitbtn').prop('disabled', false);
+			}, 2000);
+			return false;
+		}
+	});
+
     $('#animal_type').change(function (e) { 
         e.preventDefault();
         if($(this).val() == 'O') {

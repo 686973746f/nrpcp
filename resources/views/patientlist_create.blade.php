@@ -19,25 +19,25 @@
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label for="lname" class="form-label"><b class="text-danger">*</b>Last Name</label>
-                            <input type="text" class="form-control" name="lname" id="lname" value="{{old('lname')}}" maxlength="50" placeholder="DELA CRUZ" required>
+                            <input type="text" class="form-control" name="lname" id="lname" value="{{old('lname')}}" maxlength="50" placeholder="e.g DELA CRUZ" style="text-transform: uppercase;" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label for="fname" class="form-label"><b class="text-danger">*</b>First Name</label>
-                            <input type="text" class="form-control" name="fname" id="fname" value="{{old('fname')}}" maxlength="50" placeholder="JUAN" required>
+                            <input type="text" class="form-control" name="fname" id="fname" value="{{old('fname')}}" maxlength="50" placeholder="e.g JUAN" style="text-transform: uppercase;" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label for="mname" class="form-label">Middle Name <i><small>(If Applicable)</small></i></label>
-                            <input type="text" class="form-control" name="mname" id="mname" value="{{old('mname')}}" placeholder="SANCHEZ" maxlength="50">
+                            <input type="text" class="form-control" name="mname" id="mname" value="{{old('mname')}}" placeholder="e.g SANCHEZ" style="text-transform: uppercase;" maxlength="50">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label for="suffix" class="form-label">Suffix <i><small>(If Applicable)</small></i></label>
-                            <input type="text" class="form-control" name="suffix" id="suffix" value="{{old('suffix')}}" maxlength="3" placeholder="e.g JR, SR, III, IV">
+                            <input type="text" class="form-control" name="suffix" id="suffix" value="{{old('suffix')}}" maxlength="3" style="text-transform: uppercase;" placeholder="e.g JR, SR, III, IV">
                         </div>
                     </div>
                 </div>
@@ -143,13 +143,25 @@
                 </div>
             </div>
             <div class="card-footer text-end">
-                <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk me-2"></i>Save</button>
+                <button type="submit" class="btn btn-success" id="submitbtn"><i class="fa-solid fa-floppy-disk me-2"></i>Save (CTRL + S)</button>
             </div>
         </div>
     </div>
 </form>
 
 <script>
+    $(document).bind('keydown', function(e) {
+		if(e.ctrlKey && (e.which == 83)) {
+			e.preventDefault();
+			$('#submitbtn').trigger('click');
+			$('#submitbtn').prop('disabled', true);
+			setTimeout(function() {
+				$('#submitbtn').prop('disabled', false);
+			}, 2000);
+			return false;
+		}
+	});
+
     //Select2 Init for Address Bar
     $('#address_region_code, #address_province_code, #address_muncity_code, #address_brgy_text').select2({
         theme: 'bootstrap',

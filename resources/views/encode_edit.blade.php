@@ -62,7 +62,7 @@
                         </tr>
                         <tr>
                             <td class="bg-light"><strong>Contact No.</strong></td>
-                            <td>{{$d->patient->contact_number}}</td>
+                            <td>{{(!is_null($d->contact_number)) ? $d->contact_number : 'N/A'}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -102,7 +102,7 @@
                         <div id="ifanimaltype_othersdiv" class="d-none">
                             <div class="mb-3">
                                 <label for="animal_type_others" class="form-label"><strong class="text-danger">*</strong>Others, Please state Animal</label>
-                                <input type="text" class="form-control" name="animal_type_others" id="animal_type_others" value="{{old('animal_type_others', $d->animal_type_others)}}">
+                                <input type="text" class="form-control" name="animal_type_others" id="animal_type_others" value="{{old('animal_type_others', $d->animal_type_others)}}" style="text-transform: uppercase;">
                             </div>
                         </div>
                     </div>
@@ -126,7 +126,7 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="case_location" class="form-label"><strong id="case_location_ast" class="d-none text-danger">*</strong>Place (Where biting occured)</label>
-                            <input type="text" class="form-control" name="case_location" id="case_location" value="{{old('case_location', $d->case_location)}}">
+                            <input type="text" class="form-control" name="case_location" id="case_location" value="{{old('case_location', $d->case_location)}}" style="text-transform: uppercase;">
                         </div>
                     </div>
                 </div>
@@ -134,7 +134,7 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="body_site" class="form-label"><strong id="body_site_ast" class="d-none text-danger">*</strong>Site (Body Parts)</label>
-                            <input type="text" class="form-control" name="body_site" id="body_site" value="{{old('body_site', $d->body_site)}}">
+                            <input type="text" class="form-control" name="body_site" id="body_site" value="{{old('body_site', $d->body_site)}}" style="text-transform: uppercase;">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -315,7 +315,7 @@
             </div>
             <div class="card-footer text-end">
                 @if($d->outcome == 'INC')
-                <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk me-2"></i>Update</button>
+                <button type="submit" class="btn btn-success" id="submitbtn"><i class="fa-solid fa-floppy-disk me-2"></i>Update (CTRL + S)</button>
                 @else
                 <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Unable to update. The Case was marked as COMPLETED.">
                     <button class="btn btn-success" type="button" disabled><i class="fa-solid fa-floppy-disk me-2"></i>Update</button>
@@ -327,6 +327,18 @@
 </form>
 
 <script>
+    $(document).bind('keydown', function(e) {
+		if(e.ctrlKey && (e.which == 83)) {
+			e.preventDefault();
+			$('#submitbtn').trigger('click');
+			$('#submitbtn').prop('disabled', true);
+			setTimeout(function() {
+				$('#submitbtn').prop('disabled', false);
+			}, 2000);
+			return false;
+		}
+	});
+
     $('#animal_type').change(function (e) { 
         e.preventDefault();
         if($(this).val() == 'O') {

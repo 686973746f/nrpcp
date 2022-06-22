@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card mb-3">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header">Welcome to <b>National Rabies Prevention and Control Program (NRPCP) Websystem</b></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
@@ -67,7 +67,7 @@
                     </form>
                 </div>
             </div>
-            <p class="text-center">Voluntarily Developed and Maintained by <strong><u>Christian James Historillo</u></strong> for City Health Office - General Trias, Cavite.</p>
+            <p class="text-center">Voluntarily Developed and Maintained by <strong><u><a href="mailto:hihihisto@pm.me">Christian James Historillo</a></u></strong> for City Health Office - General Trias, Cavite.</p>
         </div>
     </div>
 </div>
